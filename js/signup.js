@@ -100,13 +100,13 @@ function getLabel(error){
     haveAccount.appendChild(haveAccounta);
     signUpForm.appendChild(signupbtn);
 
-    signupbtn.addEventListener("click",()=>{
+    signupbtn.addEventListener("click",async ()=>{
         var localData=JSON.parse(localStorage.getItem("Users"));
         label && label.remove();
         fullName.classList.remove('error');
         fields =[fullName, username, email, phoneNumber, gender, password,conformPassword];
         const formData={
-            "firstName":fullName.value,
+            "fullName":fullName.value,
             "username":username.value,
             "email":email.value,
             "phoneNumber":phoneNumber.value,
@@ -166,7 +166,7 @@ function getLabel(error){
         if (valid){
             var localData=JSON.parse(localStorage.getItem("Users"));
             const newData=[...localData, formData];
-            localStorage.setItem("Users",JSON.stringify(newData));
+            await localStorage.setItem("Users",JSON.stringify(newData));
             // localStorage.setItem("Users",JSON.stringify([...JSON.parse(localStorage.getItem('Users')),formData]));
             fields.forEach((field)=>{
                 field.value='';

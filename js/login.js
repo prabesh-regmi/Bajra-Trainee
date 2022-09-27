@@ -1,4 +1,5 @@
-function login(){
+ function login(){
+    if(!authUser){
     var label =null;
     formContainer && formContainer.remove();
     formContainer =document.createElement('div');
@@ -55,7 +56,7 @@ function login(){
         label.innerHTML=error;
     }
 
-    loginbtn.addEventListener("click",()=>{
+    loginbtn.addEventListener("click",async()=>{
         label && label.remove();
         fields =[ username, password];
         const formData={
@@ -88,7 +89,8 @@ function login(){
                 username.classList.add('error');
                 username.parentNode.insertBefore(label, username.nextSibling);
             }else if (user[0].password===password.value){
-            localStorage.setItem("authUser",JSON.stringify(user[0]));
+            await localStorage.setItem("authUser",JSON.stringify(user[0]));
+            index();
             }
             else{
                 getLabel("Password is incorrect1");
@@ -114,5 +116,8 @@ function login(){
     noAccounta.addEventListener("click",()=>{
         signup();
     });
- 
+}
+else{
+    index();
+}
  }

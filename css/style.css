@@ -7,7 +7,13 @@
 }
 .user-profile{
     width: 50%;
+    margin-top: 10%;
     background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    border: 1px solid black;
 }
 
 .profile-heading{
@@ -16,16 +22,19 @@
     justify-content:space-between;
     background-color:#8dccd4;
 }
+.profile-heading h1{
+    margin-left: 10px;
+}
 .user-name-area{
     display:flex;
     align-items:center;
 }
 .user-name-area img, .user-name-area h4{
-    margin-right:5px;
+    margin-right:10px;
 
 }
 .body{
-    padding: 5px 10px;
+    padding: 5px 20px;
 
 }
 .form-container{
@@ -94,6 +103,10 @@ p{
 }
 .error{
     border:1px solid red;
+}
+.logout{
+    display: flex;
+    justify-content: flex-end;
 }
 
 @media screen and (max-width: 400px){
