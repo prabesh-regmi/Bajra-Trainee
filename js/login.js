@@ -25,11 +25,15 @@ function login(){
     password.placeholder='password';
     password.classList.add('form-input')
 
+    const noAccount =document.createElement('div');
+    noAccount.classList.add('account-option');
+
     const noAccountp =document.createElement('p');
-    noAccount.innerHTML='Do not have Account?'
-    const noAccounta =document.createElement('a');
-    noAccount.innerHTML='Click here';
- 
+    noAccountp.innerHTML='Do not have Account?'
+    const noAccounta =document.createElement('p');
+    noAccounta.innerHTML='Sign Up';
+    noAccounta.classList.add('link');
+
     const loginbtn =document.createElement('input');
     loginbtn.type ='button';
     loginbtn.value='LOGIN';
@@ -39,9 +43,15 @@ function login(){
  
     loginForm.appendChild(username);
     loginForm.appendChild(password);
+    loginForm.appendChild(noAccount);
+    noAccount.appendChild(noAccountp);
+    noAccount.appendChild(noAccounta);
     loginForm.appendChild(loginbtn);
 
     loginbtn.addEventListener("click",()=>{
+        signup();
+    });
+    noAccounta.addEventListener("click",()=>{
         signup();
     });
  
