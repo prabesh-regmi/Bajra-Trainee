@@ -114,7 +114,6 @@ function getLabel(error){
         }
         var valid=true;
         fields.forEach((field)=>{
-            console.log(field.value.length);
             field.classList.remove('error');
             if(valid){
                 if(field.value.length<=0){
@@ -153,6 +152,7 @@ function getLabel(error){
             fields.forEach((field)=>{
                 field.value='';
             })
+            login();
             
         }
       

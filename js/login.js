@@ -1,4 +1,5 @@
 function login(){
+    var label =null;
     formContainer && formContainer.remove();
     formContainer =document.createElement('div');
     firstDiv.appendChild(formContainer);
@@ -48,8 +49,50 @@ function login(){
     noAccount.appendChild(noAccounta);
     loginForm.appendChild(loginbtn);
 
+    function getLabel(error){
+        label=document.createElement('label');
+        label.className='label';
+        label.innerHTML=error;
+    }
+
     loginbtn.addEventListener("click",()=>{
-        signup();
+        label && label.remove();
+        fields =[ username, password];
+        const formData={
+            "username":username.value,
+            "password":password.value
+        }
+        var valid=true;
+        fields.forEach((field)=>{
+            field.classList.remove('error');
+            if(valid){
+                if(field.value.length<=0){
+                    valid=false;
+                    getLabel("This field is required!");
+                    field.classList.add('error');
+                    field.parentNode.insertBefore(label, field.nextSibling);
+                }
+            }
+            
+
+        });
+       
+        if (valid){
+            var localData=JSON.parse(localStorage.getItem("Users"));
+            console.log(localData)
+            
+        }
+      
+
+
+
+
+
+
+
+
+
+        // login();
     });
     noAccounta.addEventListener("click",()=>{
         signup();

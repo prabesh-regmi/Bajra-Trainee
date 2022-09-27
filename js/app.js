@@ -122,12 +122,5 @@ function index(){
 window.addEventListener('DOMContentLoaded', (event) => {
 
 //    authUser &&  index();
-localStorage.setItem("Users", JSON.stringify([{
-             "fullName": "Joe Jackson",
-             "username": "Jackson",
-             "gender": "male",
-             "email": "prabesh.regmi@bajratechnologies.com",
-             "number": "7349282382"
-          }],))
 signup(); 
 });
