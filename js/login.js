@@ -79,8 +79,25 @@ function login(){
        
         if (valid){
             var localData=JSON.parse(localStorage.getItem("Users"));
-            console.log(localData)
-            
+            var user = localData.filter(obj=>{
+                return obj.username===username.value;
+                
+            });
+            if(user.length==0){
+                getLabel("This username does not exists!");
+                username.classList.add('error');
+                username.parentNode.insertBefore(label, username.nextSibling);
+            }else if (user[0].password===password.value){
+            localStorage.setItem("authUser",JSON.stringify(user[0]));
+            }
+            else{
+                getLabel("Password is incorrect1");
+                password.classList.add('error');
+                password.parentNode.insertBefore(label, password.nextSibling);
+
+            }
+
+
         }
       
 
