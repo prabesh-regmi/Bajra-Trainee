@@ -114,7 +114,7 @@ function getLabel(error){
         }
         var valid=true;
         fields.forEach((field)=>{
-            console.log(field.value)
+            console.log(field.value.length);
             field.classList.remove('error');
             if(valid){
                 if(field.value.length<=0){
@@ -123,7 +123,8 @@ function getLabel(error){
                     field.classList.add('error');
                     field.parentNode.insertBefore(label, field.nextSibling);
                 }
-                else if(field.type='email' && !email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+                else if(field.type='email' && !email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+                {
                     valid=false;
                     getLabel("Email is not valid!");
                     email.classList.add('error');
@@ -142,6 +143,17 @@ function getLabel(error){
             conformPassword.classList.add('error');
             conformPassword.parentNode.insertBefore(label, conformPassword.nextSibling);
 
+        }
+        // localStorage.setItem("Users",JSON.stringify([]));
+        if (valid){
+            var localData=JSON.parse(localStorage.getItem("Users"));
+            const newData=[...localData, formData];
+            localStorage.setItem("Users",JSON.stringify(newData));
+            // localStorage.setItem("Users",JSON.stringify([...JSON.parse(localStorage.getItem('Users')),formData]));
+            fields.forEach((field)=>{
+                field.value='';
+            })
+            
         }
       
 
