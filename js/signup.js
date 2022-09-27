@@ -101,6 +101,7 @@ function getLabel(error){
     signUpForm.appendChild(signupbtn);
 
     signupbtn.addEventListener("click",()=>{
+        var localData=JSON.parse(localStorage.getItem("Users"));
         label && label.remove();
         fullName.classList.remove('error');
         fields =[fullName, username, email, phoneNumber, gender, password,conformPassword];
@@ -143,7 +144,25 @@ function getLabel(error){
             conformPassword.parentNode.insertBefore(label, conformPassword.nextSibling);
 
         }
-        // localStorage.setItem("Users",JSON.stringify([]));
+        var user = localData.filter(obj=>{
+            return obj.email===email.value;
+        });
+        if (user.length!=0){
+            valid=false;
+            getLabel("Email already exists!");
+            email.classList.add('error');
+            email.parentNode.insertBefore(label, email.nextSibling);
+        }
+        var user1 = localData.filter(obj=>{
+            return obj.username===username.value;
+        });
+        if (user1.length!=0){
+            valid=false;
+            getLabel("This username is taken!");
+            username.classList.add('error');
+            username.parentNode.insertBefore(label, username.nextSibling);
+        }
+
         if (valid){
             var localData=JSON.parse(localStorage.getItem("Users"));
             const newData=[...localData, formData];
