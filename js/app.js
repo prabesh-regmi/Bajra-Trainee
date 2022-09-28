@@ -3,10 +3,14 @@ const firstDiv =document.createElement('div');
 root.appendChild(firstDiv);
 firstDiv.classList.add('container');
 var formContainer= null;
-const authUser=JSON.parse(localStorage.getItem("authUser"));
+var authUser=JSON.parse(localStorage.getItem("authUser"));
 
 
 function index(){
+    authUser=JSON.parse(localStorage.getItem("authUser"));
+    if (authUser){
+
+    
     formContainer && formContainer.remove();
     const userProfile = document.createElement('div');
     userProfile.classList.add('user-profile');
@@ -71,16 +75,16 @@ function index(){
     logoutBtn.addEventListener("click",()=>{
         console.log('clicked');
         localStorage.setItem("authUser",null);
-        login();
+        userProfile.remove();
+        index();
     });
-
-
-
+}
+else{
+    setTimeout(login,500);
 
 
 }
-
-
+}
 
 
 window.addEventListener('DOMContentLoaded', (event) => {

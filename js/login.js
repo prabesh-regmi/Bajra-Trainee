@@ -1,4 +1,5 @@
  function login(){
+    authUser=JSON.parse(localStorage.getItem("authUser"));
     if(!authUser){
     var label =null;
     formContainer && formContainer.remove();
@@ -90,8 +91,8 @@
                 username.parentNode.insertBefore(label, username.nextSibling);
             }else if (user[0].password===password.value){
             await localStorage.setItem("authUser",JSON.stringify(user[0]));
-            index();
-            }
+            setTimeout(index,500);
+        }
             else{
                 getLabel("Password is incorrect1");
                 password.classList.add('error');
