@@ -42,11 +42,28 @@
     margin: auto;
 
 }
-
-.todo-list h3 {
+.todo-heading{
+    display: flex;
+    justify-content: space-between;
     line-height: 0px;
+    align-items: baseline;
+    margin-bottom: -10px;
 }
 
+.todo-list .todo-heading h3 {
+    line-height: 0px;
+    cursor: pointer;
+
+}
+.active-todo-heading{
+    font-size: 26px;
+    font-weight: bold;
+    color: green;
+    text-decoration: underline;
+}
+hr{
+    line-height: 0px;
+}
 .modal {
     z-index: 9999;
     position: fixed;
