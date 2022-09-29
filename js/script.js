@@ -6,6 +6,7 @@ const modal = document.getElementById("modal");
 const form = document.getElementById('form');
 const todoHeading = document.getElementById('todo-heading');
 const completedHeading = document.getElementById('completed-heading');
+var notification=null;
 localStorage.getItem('todo') || localStorage.setItem('todo', JSON.stringify([]));
 var label = null;
 var table = null;
@@ -45,6 +46,7 @@ newBtn.addEventListener("click", () => {
 
 cancelBtn.addEventListener("click", () => {
     form.reset();
+
     label && label.remove();
     form.elements[0].classList.remove('error');
     form.elements[1].classList.remove('error');
@@ -107,6 +109,9 @@ form.addEventListener("submit", (event) => {
         form.reset();
         createTable(getTodoTask())
         modal.classList.toggle('modal-show');
+        isEdit? getNotification("Todo modefied"):getNotification("New todo created!");
+        setTimeout(notification.classList.add('hide-opacity'),2000);
+        // notification.remove();
 
     }
 
@@ -202,10 +207,14 @@ function createCompleteTable(data){
     descriptionTh.innerHTML = "Description";
     const dateTh = document.createElement('th');
     dateTh.innerHTML = 'Date';
+    const actionTh = document.createElement('th');
+    actionTh.innerHTML = 'Action';
     tr.appendChild(snTh);
     tr.appendChild(titleTh);
     tr.appendChild(descriptionTh);
     tr.appendChild(dateTh);
+    tr.appendChild(actionTh);
+
 
     data.forEach((item, index) => {
         const tr = document.createElement('tr');
@@ -219,10 +228,32 @@ function createCompleteTable(data){
         descriptionTd.innerHTML = item.description;
         const dateTd = document.createElement('td');
         dateTd.innerHTML = item.date;
+
+        const actionTd = document.createElement('td');
+        const actionDiv = document.createElement('div');
+        actionDiv.classList.add('action-div');
+        const deleteTag = document.createElement('a');
+        deleteTag.classList.add('edit')
+        deleteTag.innerHTML = 'Delete';
+        deleteTag.style.marginTop="8px"
+        actionDiv.appendChild(deleteTag)
+
         tr.appendChild(snTd);
         tr.appendChild(titleTd);
         tr.appendChild(descriptionTd);
         tr.appendChild(dateTd);
+        tr.appendChild(actionDiv);
+
+        deleteTag.addEventListener("click",(e)=>{
+
+            const deleteIndex =localData.findIndex(i=>i.id===item.id);
+            if (deleteIndex > -1) { 
+                localData.splice(index, 1); 
+              }
+            localStorage.setItem('todo', JSON.stringify(localData));
+            // location.reload();
+            createCompleteTable (completedTodoTask())
+        });
     });
 }
     function getLabel(error) {
@@ -242,4 +273,14 @@ function createCompleteTable(data){
     function completedTodoTask(){
         return localData.filter(item => item.complete===true);
 
+    }
+    // getNotification("new todo created");
+
+    function getNotification(message){
+        notification&& notification.remove();
+        notification=document.getElementById('notification');
+        notification.classList.add('notification');
+        const notificationHeading=document.createElement('p');
+        notificationHeading.innerHTML=message;
+        notification.appendChild(notificationHeading)
     }
