@@ -11,7 +11,6 @@ localStorage.getItem('todo') || localStorage.setItem('todo', JSON.stringify([]))
 var label = null;
 var table = null;
 var isEdit =null;
-console.log(localStorage.getItem('todo'))
 
 var localData = JSON.parse(localStorage.getItem('todo') || []);
 
@@ -57,7 +56,6 @@ cancelBtn.addEventListener("click", () => {
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    console.log(event.target[0].value)
     const title = event.target[0].value;
     const description = event.target[1].value;
     const date = event.target[2].value;
@@ -66,7 +64,6 @@ form.addEventListener("submit", (event) => {
     label && label.remove();
     fields.forEach((field) => {
         field.classList.remove('error');
-        console.log(field.value)
         if (valid) {
             if (field.value.length <= 0) {
                 valid = false;
@@ -77,7 +74,6 @@ form.addEventListener("submit", (event) => {
         }
 
     });
-    console.log(event.target[2].value)
     if (new Date(event.target[2].value).getTime()< Date.now()){
         valid = false;
         getLabel("This date is not valid!");
@@ -111,14 +107,10 @@ form.addEventListener("submit", (event) => {
         modal.classList.toggle('modal-show');
         isEdit? getNotification("Todo modefied"):getNotification("New todo created!");
         setTimeout(notification.classList.add('hide-opacity'),2000);
-        // notification.remove();
-
     }
 
-    // console.log(localData)
 
 });
-// localStorage.setItem('todo',JSON.stringify([]));
 
 function createTable(data){
     table && table.remove();
@@ -178,13 +170,11 @@ function createTable(data){
             form.elements[2].value =item.date;
             modal.classList.toggle('modal-show');
             isEdit =localData.findIndex(i=>i.id===item.id);
-            console.log(isEdit);
         });
         completeTag.addEventListener("click",(e)=>{
             const completeIndex =localData.findIndex(i=>i.id===item.id);
             localData[completeIndex].complete=true;
             localStorage.setItem('todo', JSON.stringify(localData));
-            // location.reload();
             createTable(getTodoTask())
 
         });
@@ -251,7 +241,6 @@ function createCompleteTable(data){
                 localData.splice(index, 1); 
               }
             localStorage.setItem('todo', JSON.stringify(localData));
-            // location.reload();
             createCompleteTable (completedTodoTask())
         });
     });
@@ -274,7 +263,6 @@ function createCompleteTable(data){
         return localData.filter(item => item.complete===true);
 
     }
-    // getNotification("new todo created");
 
     function getNotification(message){
         notification&& notification.remove();
