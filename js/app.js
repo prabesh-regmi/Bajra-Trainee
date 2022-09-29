@@ -2,6 +2,7 @@ const root = document.getElementById('root');
 const firstDiv =document.createElement('div');
 root.appendChild(firstDiv);
 firstDiv.classList.add('container');
+localStorage.getItem('Users') || localStorage.setItem('Users', JSON.stringify([]));
 var formContainer= null;
 var authUser=JSON.parse(localStorage.getItem("authUser"));
 
