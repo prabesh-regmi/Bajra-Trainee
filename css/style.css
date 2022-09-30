@@ -47,22 +47,22 @@
 .todo-heading{
     display: flex;
     justify-content: space-between;
-    line-height: 0px;
     align-items: baseline;
-    margin-bottom: -10px;
 }
 
 .todo-list .todo-heading h3 {
-    line-height: 0px;
     cursor: pointer;
+    padding: 5px 20px;
+    margin: 0;
+
 
 }
 .active-todo-heading{
-    font-size: 26px;
-    font-weight: bold;
-    color: green;
-    text-decoration: underline;
+    width: fit-content;
+    border-radius: 20px;
+    background-color: #5ce1eb;
 }
+
 hr{
     line-height: 0px;
 }
@@ -198,7 +198,5 @@ tr:nth-child(even) {
 }
 
 .hide-opacity {
-    opacity: 0.5;
-    display: none;
-
+    opacity: 0;
 }

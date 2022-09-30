@@ -106,7 +106,8 @@ form.addEventListener("submit", (event) => {
         createTable(getTodoTask())
         modal.classList.toggle('modal-show');
         isEdit? getNotification("Todo modefied"):getNotification("New todo created!");
-        setTimeout(notification.classList.add('hide-opacity'),2000);
+        setTimeout(()=>{notification.remove()} ,2000);
+
     }
 
 
@@ -117,6 +118,15 @@ function createTable(data){
     table = document.createElement('table');
     const tr = document.createElement('tr')
     tableArea.appendChild(table);
+    const colGroup =document.createElement('colgroup');
+    colGroup.innerHTML=`
+    <col width="10%" />
+    <col width="20%" />
+    <col width="30%" />
+    <col width="25%" />
+    <col width="15%" />
+    `;
+table.appendChild(colGroup);
     table.appendChild(tr);
     const snTh = document.createElement('th');
     snTh.innerHTML = "S.N";
@@ -175,7 +185,9 @@ function createTable(data){
             const completeIndex =localData.findIndex(i=>i.id===item.id);
             localData[completeIndex].complete=true;
             localStorage.setItem('todo', JSON.stringify(localData));
-            createTable(getTodoTask())
+            createTable(getTodoTask());
+            getNotification("Moved to completed task");
+            setTimeout(()=>{notification.remove()} ,2000);
 
         });
     });
@@ -188,6 +200,18 @@ function createCompleteTable(data){
     table = document.createElement('table');
     const tr = document.createElement('tr')
     tableArea.appendChild(table);
+    const colGroup =document.createElement('colgroup');
+    colGroup.innerHTML=`
+    <col width="10%" />
+    <col width="20%" />
+    <col width="30%" />
+    <col width="25%" />
+    <col width="15%" />
+    `;
+table.appendChild(colGroup);
+
+
+
     table.appendChild(tr);
     const snTh = document.createElement('th');
     snTh.innerHTML = "S.N";
