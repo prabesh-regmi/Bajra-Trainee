@@ -34,3 +34,4 @@ print("Accessing protected member of obj1: ", obj1._a)
 
 # Accessing the protected variable outside
 print("Accessing protected member of obj2: ", obj2._a)
+
