@@ -8,7 +8,6 @@ def bunnyLocation(q,w):
         v=i
         for j in range(0,m-i):
             num +=j+v
-
             col.append(num)
         list.append(col)
     return list[q-1][w-1]
