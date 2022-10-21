@@ -1,6 +1,6 @@
 f = open("test.txt")    # open file in current directory
 
-f = open("test.txt")      # equivalent to 'r' or 'rt'
+# f = open("test.txt")      # equivalent to 'r' or 'rt'
 f = open("test.txt", 'w')  # write in text mode
 
 f = open("test.txt", mode='r', encoding='utf-8')
@@ -34,7 +34,7 @@ print(f.readlines())
 
 import csv
 with open('chocolate.csv') as f:
-    reader = csv.reader(f, delimiter=',')
+    reader = csv.reader(f)
     for row in reader:
         print(row)
 
