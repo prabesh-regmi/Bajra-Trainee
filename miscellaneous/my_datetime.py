@@ -1,16 +1,15 @@
 import datetime
 # from datetime import datetime
 
-datetime_now=datetime.datetime.now()
+datetime_now = datetime.datetime.now()
 print(datetime_now)
 
-date_today=datetime.datetime.today()
+date_today = datetime.datetime.today()
 print(date_today)
 
 print(dir(datetime))
 d = datetime.date(2019, 4, 13)
 print(d)
-
 
 
 # current date and time
