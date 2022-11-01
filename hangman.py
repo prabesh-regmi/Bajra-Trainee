@@ -188,7 +188,8 @@ def hangman(secret_word):
     global available_guesses
     global available_warning
     letters_guessed = []
-
+    print("Welcome to the game Hangman!")
+    print(f"I am thinking of a word that is {len(secret_word)} letters long.")
     # Showing available warning and guesses
     print(f"You have {available_warning} warning left")
 
@@ -291,6 +292,9 @@ def hangman_with_hints(secret_word):
     global available_guesses
     global available_warning
     letters_guessed = []
+    print("Welcome to the game Hangman!")
+    print(f"I am thinking of a word that is {len(secret_word)} letters long.")
+    print("------------")
 
     # Showing available warning and guesses
     print(f"You have {available_warning} warning left")
