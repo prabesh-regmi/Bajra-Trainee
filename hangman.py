@@ -9,10 +9,55 @@
 # You don't need to understand this helper code,
 # but you will have to know how to use the functions
 # (so be sure to read the docstrings!)
+from curses.ascii import isalpha
 import random
 import string
+from string import ascii_letters, digits
 
 WORDLIST_FILENAME = "words.txt"
+# Initilizing initial number of warnign and guess
+available_warning=3
+available_guesses =6
+
+################  My custom functions go here   ################
+
+def wrong_input():
+  if available_warning>0:
+    available_warning -=1
+    print("You have {} warnings left".format(available_warning))
+  else:
+    available_guesses -=1
+
+def get_user_input(letters_guessed):
+  '''
+  letters_guessed: list (of letters), which letters have been guessed so far;
+      assumes that all letters are lowercase
+
+  Returns:string, user input letter in lowercase. Only returns alphabet.
+  '''
+  valid=False
+  while(not valid):
+    user_input= input("Please guess a letter: ").lower()
+    if (len(user_input)!=1):
+      wrong_input()
+      print("please Enter only onle letter")
+      continue
+    if not isalpha(user_input):
+      wrong_input()
+      print("Numbers and Symbols are not allowed please enter alphabet")
+      continue
+    if user_input in letters_guessed:
+      wrong_input()
+      print("You already entered this letter please enter any from available letters")
+    valid =True
+  return user_input
+
+      
+
+      
+
+
+
 
 
 def load_words():
@@ -91,7 +136,7 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    
+
     available_letter=string.ascii_lowercase
     for letter in letters_guessed:
         if letter in available_letter:
@@ -128,6 +173,9 @@ def hangman(secret_word):
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     pass
+
+
+
 
 
 
