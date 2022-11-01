@@ -65,10 +65,8 @@ def is_word_guessed(secret_word, letters_guessed):
       False otherwise
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    for letter in secret_word:
-        if letter not in letters_guessed:
-            return False
-    return True
+    return all(letter in letters_guessed for letter in secret_word)
+
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -255,9 +253,13 @@ def show_possible_matches(my_word):
 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    all_words = load_words()
-    matches = [word for word in all_words if match_with_gaps(my_word, word)]
-    print(' '.join(matches))
+    global available_guesses
+    if len(my_word.replace("_ ",''))>0 and available_guesses<4:
+      all_words = load_words()
+      matches = [word for word in all_words if match_with_gaps(my_word, word)]
+      print(' '.join(matches))
+    else:
+      print("Hints not available!")
 
 
 def hangman_with_hints(secret_word):
