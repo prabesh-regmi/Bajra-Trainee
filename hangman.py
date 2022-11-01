@@ -9,7 +9,6 @@
 # You don't need to understand this helper code,
 # but you will have to know how to use the functions
 # (so be sure to read the docstrings!)
-from curses.ascii import isalpha
 import random
 import string
 from string import ascii_letters, digits
@@ -17,48 +16,7 @@ from string import ascii_letters, digits
 WORDLIST_FILENAME = "words.txt"
 # Initilizing initial number of warnign and guess
 available_warning=3
-available_guesses =6
-
-################  My custom functions go here   ################
-
-def wrong_input():
-  if available_warning>0:
-    available_warning -=1
-    print("You have {} warnings left".format(available_warning))
-  else:
-    available_guesses -=1
-
-def get_user_input(letters_guessed):
-  '''
-  letters_guessed: list (of letters), which letters have been guessed so far;
-      assumes that all letters are lowercase
-
-  Returns:string, user input letter in lowercase. Only returns alphabet.
-  '''
-  valid=False
-  while(not valid):
-    user_input= input("Please guess a letter: ").lower()
-    if (len(user_input)!=1):
-      wrong_input()
-      print("please Enter only onle letter")
-      continue
-    if not isalpha(user_input):
-      wrong_input()
-      print("Numbers and Symbols are not allowed please enter alphabet")
-      continue
-    if user_input in letters_guessed:
-      wrong_input()
-      print("You already entered this letter please enter any from available letters")
-    valid =True
-  return user_input
-
-      
-
-      
-
-
-
-
+available_guesses=6
 
 def load_words():
     """
@@ -67,14 +25,14 @@ def load_words():
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-    print("Loading word list from file...")
+    # print("Loading word list from file...")
     # inFile: file
     inFile = open(WORDLIST_FILENAME, 'r')
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
     wordlist = line.split()
-    print("  ", len(wordlist), "words loaded.")
+    # print("  ", len(wordlist), "words loaded.")
     return wordlist
 
 
@@ -143,10 +101,52 @@ def get_available_letters(letters_guessed):
             available_letter = available_letter.replace(letter,'')
     return available_letter
 
-    
+
+################  My custom functions go here   ################
+
+def wrong_input(user_input):
+  global available_guesses
+  global available_warning
+  if available_warning>0:
+    available_warning -=1
+    print("You have {} warnings left".format(available_warning))
+  else:
+    if user_input in 'aeiou':
+          available_guesses -=1
+    available_guesses -=1
+    print("You have {} guesses left".format(available_guesses))
+
+def get_user_input(secret_word,letters_guessed):
+  '''
+  secret_word: string, the word the user is guessing
+  letters_guessed: list (of letters), which letters have been guessed so far;
+      assumes that all letters are lowercase
+
+  Returns:string, user input letter in lowercase. Only returns alphabet.
+  '''
+  global available_guesses
+  while(available_guesses>0):
+    user_input= input("Please guess a letter: ").lower()
+    print(user_input)
+    if (len(user_input)!=1):
+      wrong_input(user_input)
+      print("please Enter only onle letter: {}".format(get_guessed_word(secret_word,letters_guessed)))
+      continue
+    if not user_input.isalpha():
+      wrong_input(user_input)
+      print("Numbers and Symbols are not allowed please enter alphabet: {}".format(get_guessed_word(secret_word,letters_guessed)))
+      continue
+    if user_input in letters_guessed:
+      wrong_input(user_input)
+      print("Opps!! You already guessed that letter. Please enter any from available letters: {}".format(get_guessed_word(secret_word,letters_guessed)))
+      continue
+    return user_input
+  return "null"
+
     
 
 def hangman(secret_word):
+  
     '''
     secret_word: string, the secret word to guess.
     
@@ -172,11 +172,36 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    # Initilize empty list for guessed letter
+    global available_guesses
+    global available_warning
+    letters_guessed=[]
+    
+    # Showing available warning and guesses
+    print("You have {} warning left".format(available_warning))
 
+    # Running while loop until word is guessed or guesses left out
+    while(not is_word_guessed(secret_word,letters_guessed) and available_guesses>0):
+      print("You have {} guesses left".format(available_guesses))
+      print("Available letters: {}".format(get_available_letters(letters_guessed)))
+      user_input =get_user_input(secret_word,letters_guessed)
+      if user_input != 'null':
+        letters_guessed.append(user_input)
+        if user_input in secret_word:
+          print("Good guess: {}".format(get_guessed_word(secret_word,letters_guessed)))
+        else:
+          print("Oops! That letter is not in my word: {}".format(get_guessed_word(secret_word,letters_guessed)))
+          if user_input in 'aeiou':
+            available_guesses -=1
+          available_guesses -=1
+        print("---------------")
 
-
-
+    # Game Over
+    if is_word_guessed(secret_word,letters_guessed):
+      print("Congratulations, you won!")
+      print("Your total score for this game is: ")
+    else:
+      print("Sorry, you ran out of guesses. The word was {}.".format(secret_word))
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -207,10 +232,10 @@ def show_possible_matches(my_word):
     '''
     my_word: string with _ characters, current guess of secret word
     returns: nothing, but should print out every word in wordlist that matches my_word
-             Keep in mind that in hangman when a letter is guessed, all the positions
-             at which that letter occurs in the secret word are revealed.
-             Therefore, the hidden letter(_ ) cannot be one of the letters in the word
-             that has already been revealed.
+            Keep in mind that in hangman when a letter is guessed, all the positions
+            at which that letter occurs in the secret word are revealed.
+            Therefore, the hidden letter(_ ) cannot be one of the letters in the word
+            that has already been revealed.
 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
@@ -263,7 +288,7 @@ if __name__ == "__main__":
     # uncomment the following two lines.
     
     secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    hangman('prabesh')
 
 ###############
     
