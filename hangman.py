@@ -143,6 +143,15 @@ def get_user_input(secret_word,letters_guessed):
     return user_input
   return "null"
 
+def get_score(secret_word,guesses_left):
+  '''
+      secret_word: string, the secret word to guess.
+      guesses_left: number, the number of guesses left.
+      returns: number, return guesses_left multiply number of distinct letter in secret_word
+  
+  '''
+  return guesses_left*len(set(secret_word))
+
     
 
 def hangman(secret_word):
@@ -199,7 +208,7 @@ def hangman(secret_word):
     # Game Over
     if is_word_guessed(secret_word,letters_guessed):
       print("Congratulations, you won!")
-      print("Your total score for this game is: ")
+      print("Your total score for this game is: {}".format(get_score(secret_word,available_guesses)))
     else:
       print("Sorry, you ran out of guesses. The word was {}.".format(secret_word))
 
