@@ -233,7 +233,14 @@ def match_with_gaps(my_word, other_word):
         False otherwise: 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    my_word =my_word.replace("_ ","_")
+    if len(my_word)!=len(other_word):
+      return False
+    for index,letter in enumerate(my_word):
+      if letter != '_':
+        if letter != other_word[index]:
+          return False
+    return True
 
 
 
@@ -297,7 +304,7 @@ if __name__ == "__main__":
     # uncomment the following two lines.
     
     secret_word = choose_word(wordlist)
-    hangman('prabesh')
+    hangman(secret_word)
 
 ###############
     
