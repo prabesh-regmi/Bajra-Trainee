@@ -77,7 +77,10 @@ def get_guessed_word(secret_word, letters_guessed):
       which letters in secret_word have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    gussed_word=[letter if letter in letters_guessed else '_ ' for letter in secret_word]
+    return ''.join(gussed_word)
+
+
 
 
 
