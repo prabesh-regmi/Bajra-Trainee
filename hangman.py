@@ -255,11 +255,11 @@ def show_possible_matches(my_word):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     global available_guesses
     if len(my_word.replace("_ ",''))>0 and available_guesses<4:
-      all_words = load_words()
-      matches = [word for word in all_words if match_with_gaps(my_word, word)]
-      print(' '.join(matches))
+        all_words = load_words()
+        matches = [word for word in all_words if match_with_gaps(my_word, word)]
+        print(' '.join(matches))
     else:
-      print("Hints not available!")
+        print("Hints not available!")
 
 
 def hangman_with_hints(secret_word):
