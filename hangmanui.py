@@ -8,6 +8,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
+
 import random
 import string
 from string import ascii_letters, digits
@@ -48,11 +50,11 @@ def choose_word(wordlist):
 def is_word_guessed(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing; assumes all letters are
-      lowercase
+    lowercase
     letters_guessed: list (of letters), which letters have been guessed so far;
-      assumes that all letters are lowercase
+    assumes that all letters are lowercase
     returns: boolean, True if all the letters of secret_word are in letters_guessed;
-      False otherwise
+    False otherwise
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     return all(letter in letters_guessed for letter in secret_word)
@@ -64,7 +66,7 @@ def get_guessed_word(secret_word, letters_guessed):
     secret_word: string, the word the user is guessing
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string, comprised of letters, underscores (_), and spaces that represents
-      which letters in secret_word have been guessed so far.
+    which letters in secret_word have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     gussed_word = [
@@ -76,7 +78,7 @@ def get_available_letters(letters_guessed):
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string (of letters), comprised of letters that represents which letters have not
-      yet been guessed.
+    yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
 
@@ -103,42 +105,57 @@ def match_with_gaps(my_word, other_word):
 
 
 class Ui_MainWindow(object):
-    def __init__(self, words):
+    def __init__(self, words,MainWindow):
         self.available_guesses = 6
-        self.available_warning = 6
+        self.available_warning = 3
         self.letters_guessed = []
         self.secret_word = choose_word(words)
+        # self.secret_word ="prabesh"
+        self.words =words
+        self.mainWindow =MainWindow
+        self.setupUi(MainWindow)
+    def reset_game(self):
+        self.available_guesses=6
+        self.available_warning = 3
+        self.letters_guessed = []
+        self.secret_word = choose_word(self.words)
+        self.setupUi(self.mainWindow)
+
 
     def wrong_input(self,user_input):
         _translate = QtCore.QCoreApplication.translate
 
         if self.available_warning > 0:
             self.available_warning -= 1
-            self.guess_label.setText(_translate("MainWindow", self.available_warning))
+            self.warning_label.setText(_translate("MainWindow", str(self.available_warning)))
         else:
             if user_input in 'aeiou':
-                available_guesses -= 1
-            available_guesses -= 1
-            self.guess_label.setText(_translate("MainWindow", self.available_guesses))
+                self.available_guesses -= 1
+            self.available_guesses -= 1
+            self.guess_label.setText(_translate("MainWindow", str(self.available_guesses)))
     def is_valid_input(self,user_input):
+        _translate = QtCore.QCoreApplication.translate
         if user_input == '*':
-            return True
+            self.show_possible_matches(get_guessed_word(self.secret_word, self.letters_guessed))
+            return False
         if len(user_input) == 0:
             return False
         if (len(user_input) != 1):
             self.wrong_input(user_input)
-            print(f"please Enter only onle letter: {get_guessed_word(self.secret_word, self.letters_guessed)}")
+            self.guess_result_label.setText(_translate("MainWindow", "please Enter only onle letter!!"))
+            # print(f"please Enter only onle letter: {get_guessed_word(self.secret_word, self.letters_guessed)}")
 
             return False
         if not user_input.isalpha():
             self.wrong_input(user_input)
-            print(f"Numbers and Symbols are not allowed please enter alphabet: {get_guessed_word(secret_word, letters_guessed)}")
+            self.guess_result_label.setText(_translate("MainWindow", "Numbers and Symbols are not allowed please enter alphabet!!"))
+
+            # print(f"Numbers and Symbols are not allowed please enter alphabet: {get_guessed_word(secret_word, letters_guessed)}")
 
             return False
         if user_input in self.letters_guessed:
             self.wrong_input(user_input)
-            print(f"Opps!! You already guessed that letter. Please enter any from available letters: {get_guessed_word(secret_word, letters_guessed)}")
-
+            self.guess_result_label.setText(_translate("MainWindow", "Opps!! You already guessed that letter. Please enter any from available letters!!"))
             return False
         return True
 
@@ -156,20 +173,89 @@ class Ui_MainWindow(object):
         '''
         # FILL IN YOUR CODE HERE AND DELETE "pass"
         _translate = QtCore.QCoreApplication.translate
-
         if len(my_word.replace("_ ",''))>0 and self.available_guesses<4:
-            all_words = load_words()
-            matches = [word for word in all_words if match_with_gaps(my_word, word)]
+            matches = [word for word in self.words if match_with_gaps(my_word, word)]
             text=' '.join(matches)
-            self.hintsLabel.setHtml(_translate("MainWindow", f"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">{text}</p></body></html>"))
+            print("print")
+            self.hintsLabel1.setText(text)
+        else:
+            self.hintsLabel1.setText("Hints not available! To get hints you must have less than 4 guesses and should have guessed at least one letter")
+
+
+    def update_hangman_image(self):
+        if self.available_guesses>-1:
+            self.photo.setPixmap(QtGui.QPixmap(f"images/{self.available_guesses}.jpg"))
+
+    def game_over(self,is_won):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(358, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        _translate = QtCore.QCoreApplication.translate
+        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget.setGeometry(QtCore.QRect(30, 210, 256, 192))
+        self.listWidget.setObjectName("listWidget")
+        self.gameOverLabel = QtWidgets.QLabel(self.centralwidget)
+        self.gameOverLabel.setGeometry(QtCore.QRect(100, 230, 121, 20))
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu Condensed")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.gameOverLabel.setFont(font)
+        self.gameOverLabel.setObjectName("gameOverLabel")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(70, 280, 101, 17))
+        self.label_6.setObjectName("label_6")
+        self.gameOverWordLabel = QtWidgets.QLabel(self.centralwidget)
+        self.gameOverWordLabel.setGeometry(QtCore.QRect(170, 280, 31, 17))
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu Condensed")
+        font.setBold(True)
+        font.setWeight(75)
+        self.gameOverWordLabel.setFont(font)
+        self.gameOverWordLabel.setObjectName("gameOverWordLabel")
+        self.playAgainBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.playAgainBtn.setGeometry(QtCore.QRect(170, 350, 89, 25))
+        self.playAgainBtn.setObjectName("playAgainBtn")
+        self.exitBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.exitBtn.setGeometry(QtCore.QRect(60, 350, 89, 25))
+        self.exitBtn.setObjectName("exitBtn")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(70, 310, 91, 17))
+        self.label_4.setObjectName("label_4")
+        self.scoreLabel = QtWidgets.QLabel(self.centralwidget)
+        self.scoreLabel.setGeometry(QtCore.QRect(170, 310, 31, 17))
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu Condensed")
+        font.setBold(True)
+        font.setWeight(75)
+        self.scoreLabel.setFont(font)
+        self.scoreLabel.setObjectName("scoreLabel")
+
+        self.gameOverLabel.setText(_translate("MainWindow", "Game over!!"))
+        self.label_6.setText(_translate("MainWindow", "The word was"))
+        self.gameOverWordLabel.setText(_translate("MainWindow", self.secret_word))
+        self.playAgainBtn.setText(_translate("MainWindow", "Play again"))
+        self.exitBtn.setText(_translate("MainWindow", "Exit"))
+        self.label_4.setText(_translate("MainWindow", "Your score is :"))
+        self.scoreLabel.setText(_translate("MainWindow", "0"))
+        MainWindow.setCentralWidget(self.centralwidget)
 
         
 
+        if is_won:
+            self.scoreLabel.setText(_translate("MainWindow", "10"))
+            self.gameOverLabel.setText(_translate("MainWindow", "You Won!!"))
 
+        self.exitBtn.clicked.connect(self.exit)
+        self.playAgainBtn.clicked.connect(self.reset_game)
+    def exit(self):
+        sys.exit(app.exec_())
+
+
+
+        
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -192,6 +278,7 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.label.setFont(font)
         self.label.setObjectName("label")
+
         self.photo = QtWidgets.QLabel(self.centralwidget)
         self.photo.setGeometry(QtCore.QRect(60, 80, 131, 241))
         self.photo.setText("")
@@ -202,7 +289,7 @@ class Ui_MainWindow(object):
         self.solutionLabel = QtWidgets.QLabel(self.centralwidget)
         self.solutionLabel.setGeometry(QtCore.QRect(60, 340, 131, 31))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(14)
         self.solutionLabel.setFont(font)
         self.solutionLabel.setText("")
         self.solutionLabel.setObjectName("solutionLabel")
@@ -236,9 +323,18 @@ class Ui_MainWindow(object):
         self.hintsLabel.setGeometry(QtCore.QRect(210, 160, 101, 17))
         self.hintsLabel.setObjectName("hintsLabel")
 
-        self.hintsLabel1 = QtWidgets.QTextBrowser(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu Condensed")
+        font.setBold(False)
+        font.setPointSize(9)
+        self.hintsLabel1 = QtWidgets.QLabel(self.centralwidget)
         self.hintsLabel1.setGeometry(QtCore.QRect(200, 190, 151, 281))
         self.hintsLabel1.setObjectName("hintsLabel1")
+        self.hintsLabel1.setWordWrap(True)
+        self.hintsLabel1.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        self.hintsLabel1.setFont(font)
+        
+
 
         self.warning_label = QtWidgets.QLabel(self.centralwidget)
         self.warning_label.setGeometry(QtCore.QRect(320, 129, 21, 21))
@@ -263,7 +359,9 @@ class Ui_MainWindow(object):
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
         self.label_9.setGeometry(QtCore.QRect(16, 530, 121, 20))
         self.label_9.setObjectName("label_9")
+
         MainWindow.setCentralWidget(self.centralwidget)
+
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -278,7 +376,7 @@ class Ui_MainWindow(object):
         self.solutionLabel.setText(_translate("MainWindow", get_guessed_word(self.secret_word,self.letters_guessed)))
 
         self.enterBtn.setText(_translate("MainWindow", "Enter"))
-        self.label.setText(_translate("MainWindow", "Enter a guess word"))
+        self.label.setText(_translate("MainWindow", "Enter a guess letter"))
         self.label_2.setText(_translate(
             "MainWindow", "Welcome to hangmang Game!!!"))
         self.label_3.setText(_translate("MainWindow", "Guesses left = "))
@@ -286,28 +384,48 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "Warning left ="))
         self.hintsLabel.setText(_translate("MainWindow", "Hints:"))
         self.warning_label.setText(_translate("MainWindow", "3"))
-        self.guess_result_label.setText(_translate(
-            "MainWindow", "Oops!! Thats a worng guess!"))
+        self.guess_result_label.setText(_translate("MainWindow", ""))
         self.available_letter_label.setText(
-            _translate("MainWindow", "abcdefghijklmnopqrstwxyz"))
+            _translate("MainWindow", get_available_letters(self.letters_guessed)))
         self.label_9.setText(_translate("MainWindow", "Available words :"))
-        self.hintsLabel1.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Hints not available!</p></body></html>"))
+        self.hintsLabel1.setText("Hints not available! To get hints enter * and press Enter!!")
 
+        
 
     def submit(self):
-        print(self.inputText.text())
+        _translate = QtCore.QCoreApplication.translate
+        user_input=self.inputText.text()
+        if self.is_valid_input(user_input):
+            self.letters_guessed.append(user_input)
+            if user_input in self.secret_word:
+                self.solutionLabel.setText(_translate("MainWindow", get_guessed_word(self.secret_word,self.letters_guessed)))
+                self.guess_result_label.setText(_translate("MainWindow", "Good guess!"))
+
+                # print(f"Good guess: {get_guessed_word(secret_word, letters_guessed)}")
+            else:
+                # print(f"Oops! That letter is not in my word: {get_guessed_word(secret_word, letters_guessed)}")
+                self.guess_result_label.setText(_translate("MainWindow", "Oops! That letter is not in my word!"))
+
+                if user_input in 'aeiou':
+                    self.available_guesses -= 1
+                self.available_guesses -= 1
+                self.guess_label.setText(_translate("MainWindow", str(self.available_guesses)))
+
         self.inputText.setText("")
+        self.available_letter_label.setText(
+            _translate("MainWindow", get_available_letters(self.letters_guessed)))
+        self.update_hangman_image()
+        if self.available_guesses<1:
+            self.game_over(False)
+        elif is_word_guessed(self.secret_word,self.letters_guessed):
+            self.game_over(True)
+
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow(load_words())
-    ui.setupUi(MainWindow)
+    ui = Ui_MainWindow(load_words(),MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
