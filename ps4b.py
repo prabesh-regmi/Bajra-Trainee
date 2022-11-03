@@ -50,9 +50,8 @@ def get_story_string():
     """
     Returns: a story in encrypted text.
     """
-    f = open("story.txt", "r")
-    story = str(f.read())
-    f.close()
+    with open("story.txt", "r") as f:
+        story = str(f.read())
     return story
 
 ### END HELPER CODE ###
@@ -70,7 +69,8 @@ class Message(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
 
     def get_message_text(self):
         '''
@@ -78,7 +78,7 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return self.text
 
     def get_valid_words(self):
         '''
@@ -87,7 +87,7 @@ class Message(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        return self.valid_words
 
     def build_shift_dict(self, shift):
         '''
@@ -101,9 +101,15 @@ class Message(object):
         alphabet. 0 <= shift < 26
 
         Returns: a dictionary mapping a letter (string) to 
-                 another letter (string). 
+                another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        uppercase_letters=string.ascii_uppercase
+        lowercase_letters=string.ascii_lowercase
+        d = {letter: uppercase_letters[(index + shift) % 26] for index, letter in enumerate(uppercase_letters)}
+
+        for index,letter in enumerate(lowercase_letters):
+            d[letter]=lowercase_letters[(index+shift)%26]
+        return d
 
     def apply_shift(self, shift):
         '''
@@ -115,10 +121,11 @@ class Message(object):
         0 <= shift < 26
 
         Returns: the message text (string) in which every character is shifted
-             down the alphabet by the input shift
+            down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
-
+        d=self.build_shift_dict(shift)
+        for letter in self.get_message_text():
+            message += d[letter] if letter.isalpha() else letter
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
         '''
