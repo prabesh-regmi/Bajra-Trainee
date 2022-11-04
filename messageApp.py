@@ -9,7 +9,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
+import socket
 
+
+HOST = "192.168.88.217"  # The server's hostname or IP address
+PORT = 65407  # The port used by the server
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -95,10 +99,36 @@ class Ui_MainWindow(object):
         self.display_message_label.setText(_translate("MainWindow", "You have no message!!"))
     
     def load_message(self):
-        pass
+        # print("load message")
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            s.sendall(bytes("Send message","utf-8"))
+            data = s.recv(1024)
+            data =data.decode("utf-8")
+            if "///" in data:
+                sender = data.split("///")[0]
+                receive_message =data.split("///")[1]
+                self.display_message_label.setText(f"Message from: {sender} \n {receive_message}")
+            else:
+                self.display_message_label.setText(data)
+
+        
 
     def send_data(self):
-        pass
+        receiver_ip = self.receiver_ip_input.text()
+        message = self.message_input.toPlainText()
+        # print(receiver_ip,message)
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            s.sendall(bytes(f"{receiver_ip}///{message}","utf-8"))
+            data = s.recv(1024)
+            data =data.decode("utf-8")
+            if "///" in data:
+                sender = data.split("///")[0]
+                receive_message =data.split("///")[1]
+                self.display_message_label.setText(f"Message from: {sender} \n {receive_message}")
+
+
 
 
 
