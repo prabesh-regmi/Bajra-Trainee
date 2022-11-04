@@ -113,10 +113,13 @@ class SubMessage(object):
         Returns: a dictionary mapping a letter (string) to 
                 another letter (string).
         '''
-        d = {letter: letter for letter in CONSONANTS_LOWER}
-        d = {letter: letter for letter in CONSONANTS_UPPER}
-        d = {letter: vowels_permutation[index] for index, letter in enumerate(VOWELS_LOWER)}
         d = {letter: vowels_permutation[index].upper() for index, letter in enumerate(VOWELS_UPPER)}
+        for letter in CONSONANTS_UPPER:
+            d[letter] = letter
+        for letter in CONSONANTS_LOWER:
+            d[letter] = letter
+        for index,letter in enumerate(VOWELS_LOWER):
+            d[letter] = vowels_permutation[index]
         return d
 
     def apply_transpose(self, transpose_dict):
@@ -126,9 +129,9 @@ class SubMessage(object):
         Returns: an encrypted version of the message text, based 
         on the dictionary
         '''
-        for letter in self.get_message_text():
-            message += transpose_dict[letter] if letter.isalpha() else letter
-        return message
+        # return ''.join(transpose_dict[letter] if letter.isalpha() else letter for letter in self.get_message_text())
+        return ''.join(transpose_dict[letter] if letter.isalpha() else letter for letter in self.get_message_text())
+
 
 class EncryptedSubMessage(SubMessage):
     def __init__(self, text):
@@ -141,7 +144,7 @@ class EncryptedSubMessage(SubMessage):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass
+        super().__init__(text)
 
     def decrypt_message(self):
         '''
@@ -161,13 +164,26 @@ class EncryptedSubMessage(SubMessage):
 
         Hint: use your function from Part 4A
         '''
-        pass
+        permutation = get_permutations("aeiou")
+        actual_message =[0,'']
+        for p in permutation:
+            transpose_dictionary = self.build_transpose_dict(p)
+            encrypted_message_list = self.apply_transpose(transpose_dictionary).split(" ")
+            count = sum(1 for word in encrypted_message_list if is_word(self.valid_words, word))
+
+            if count >actual_message[0]:
+                actual_message[0]=count
+                actual_message[1] =' '.join(encrypted_message_list)
+        return actual_message[1]
+            
+
+
 
 
 if __name__ == '__main__':
 
     # Example test case
-    message = SubMessage("Hello World!")
+    message = SubMessage("Hi my name is aditya")
     permutation = "eaiuo"
     enc_dict = message.build_transpose_dict(permutation)
     print("Original message:", message.get_message_text(),
