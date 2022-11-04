@@ -183,7 +183,7 @@ class EncryptedSubMessage(SubMessage):
 if __name__ == '__main__':
 
     # Example test case
-    message = SubMessage("Hi my name is aditya")
+    message = SubMessage("Hi US")
     permutation = "eaiuo"
     enc_dict = message.build_transpose_dict(permutation)
     print("Original message:", message.get_message_text(),
