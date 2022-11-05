@@ -1,6 +1,6 @@
 import socket
 
-HOST = "192.168.88.217"  # Standard loopback interface address (localhost)
+HOST = "192.168.1.84"  # Standard loopback interface address (localhost)
 PORT = 65407  # Port to listen on (non-privileged ports are > 1023)
 messages =[]
 
@@ -23,6 +23,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 print(messages)
                 for index,message in enumerate(messages):
                     if addr[0] in message[1][0]:
-                        conn.sendall(bytes('///'.join(message[1]),"utf-8"))
+                        conn.sendall(bytes('///'.join([message[0],message[1][1]]),"utf-8"))
                         messages.pop(index)
                 conn.sendall(bytes("You Have no message","utf-8"))

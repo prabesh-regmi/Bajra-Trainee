@@ -10,10 +10,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import socket
+from ps4b import PlaintextMessage, CiphertextMessage
 
 
-HOST = "192.168.88.217"  # The server's hostname or IP address
+HOST = "192.168.1.84"  # The server's hostname or IP address
 PORT = 65407  # The port used by the server
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -95,42 +97,47 @@ class Ui_MainWindow(object):
         self.send_btn.setText(_translate("MainWindow", "SEND"))
         self.label_3.setText(_translate("MainWindow", "Send Message !!"))
         self.label_5.setText(_translate("MainWindow", "Receive Message !!"))
-        self.check_message_btn.setText(_translate("MainWindow", "Check For Message"))
-        self.display_message_label.setText(_translate("MainWindow", "You have no message!!"))
-    
+        self.check_message_btn.setText(
+            _translate("MainWindow", "Check For Message"))
+        self.display_message_label.setText(
+            _translate("MainWindow", "You have no message!!"))
+
     def load_message(self):
         # print("load message")
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((HOST, PORT))
-            s.sendall(bytes("Send message","utf-8"))
-            data = s.recv(1024)
-            data =data.decode("utf-8")
-            if "///" in data:
-                sender = data.split("///")[0]
-                receive_message =data.split("///")[1]
-                self.display_message_label.setText(f"Message from: {sender} \n {receive_message}")
-            else:
-                self.display_message_label.setText(data)
-
-        
+            try:
+                s.connect((HOST, PORT))
+                s.sendall(bytes("Send message", "utf-8"))
+                data = s.recv(1024)
+                data = data.decode("utf-8")
+                if "///" in data:
+                    ciphertext = CiphertextMessage(data)
+                    data = ciphertext.decrypt_message()[1]
+                    sender = data.split("///")[0]
+                    receive_message = data.split("///")[1]
+                    self.display_message_label.setText(
+                        f"Message from: {sender} \n Message: {receive_message}")
+                else:
+                    self.display_message_label.setText(data)
+            except:
+                self.display_message_label.setText("Error Occured!!")
 
     def send_data(self):
         receiver_ip = self.receiver_ip_input.text()
         message = self.message_input.toPlainText()
+        plaintext = PlaintextMessage(message, 17)
+        message = plaintext.get_message_text_encrypted()
         # print(receiver_ip,message)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-            s.sendall(bytes(f"{receiver_ip}///{message}","utf-8"))
+            s.sendall(bytes(f"{receiver_ip}///{message}", "utf-8"))
             data = s.recv(1024)
-            data =data.decode("utf-8")
+            data = data.decode("utf-8")
             if "///" in data:
                 sender = data.split("///")[0]
-                receive_message =data.split("///")[1]
-                self.display_message_label.setText(f"Message from: {sender} \n {receive_message}")
-
-
-
-
+                receive_message = data.split("///")[1]
+                self.display_message_label.setText(
+                    f"Message from: {sender} \n {receive_message}")
 
 
 if __name__ == "__main__":
