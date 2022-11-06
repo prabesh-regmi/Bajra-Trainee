@@ -11,6 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import socket
 from ps4b import PlaintextMessage, CiphertextMessage
+import json
+
 
 
 HOST = "192.168.1.84"  # The server's hostname or IP address
@@ -104,21 +106,27 @@ class Ui_MainWindow(object):
 
     def load_message(self):
         # print("load message")
+        req={
+            "method":"GET",
+        }
+        req = json.dumps(req)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:
                 s.connect((HOST, PORT))
-                s.sendall(bytes("Send message", "utf-8"))
-                data = s.recv(1024)
-                data = data.decode("utf-8")
-                if "///" in data:
-                    ciphertext = CiphertextMessage(data)
-                    data = ciphertext.decrypt_message()[1]
-                    sender = data.split("///")[0]
-                    receive_message = data.split("///")[1]
-                    self.display_message_label.setText(
-                        f"Message from: {sender} \n Message: {receive_message}")
+                s.sendall(bytes(req, "utf-8"))
+                response = s.recv(1024)
+                response = response.decode("utf-8")
+                response = json.loads(response)
+                if response["hasMessage"]:
+                    display_text =''
+                    for message in response["message"]:
+                        message_from =message["from"]
+                        ciphertext = CiphertextMessage(message["message"])
+                        message_information = ciphertext.decrypt_message()[1]
+                        display_text += f"From: {message_from} \nMessage: {message_information} \n \n"
+                    self.display_message_label.setText(display_text)
                 else:
-                    self.display_message_label.setText(data)
+                    self.display_message_label.setText("You have no new message!!")
             except:
                 self.display_message_label.setText("Error Occured!!")
 
@@ -127,17 +135,25 @@ class Ui_MainWindow(object):
         message = self.message_input.toPlainText()
         plaintext = PlaintextMessage(message, 17)
         message = plaintext.get_message_text_encrypted()
+
+        req={
+            "method":"POST",
+            "to":receiver_ip,
+            "message":message,
+        }
+        req = json.dumps(req)
         # print(receiver_ip,message)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-            s.sendall(bytes(f"{receiver_ip}///{message}", "utf-8"))
-            data = s.recv(1024)
-            data = data.decode("utf-8")
-            if "///" in data:
-                sender = data.split("///")[0]
-                receive_message = data.split("///")[1]
-                self.display_message_label.setText(
-                    f"Message from: {sender} \n {receive_message}")
+            s.sendall(bytes(req, "utf-8"))
+            response = s.recv(1024)
+                
+            # response = response.decode("utf-8")
+            # if "///" in response:
+            #     sender = response.split("///")[0]
+            #     receive_message = response.split("///")[1]
+            #     self.display_message_label.setText(
+            #         f"Message from: {sender} \n {receive_message}")
 
 
 if __name__ == "__main__":
