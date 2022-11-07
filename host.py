@@ -17,6 +17,16 @@ def get_name_from_ip(ip):
     else:
         return ip
 
+def get_ip_from_name(name):
+    if name.lower() == 'kirti':
+        return "10.10.100.22"
+    elif name.lower() == 'aayush':
+        return "10.10.100.103"
+    elif name.lower == 'prabesh':
+        return "10.10.100.117"
+    else:
+        return name
+
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
@@ -45,7 +55,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 )
             else:
                 for index, message in reversed(list(enumerate(messages))):
-                    if addr[0] == message["to"]:
+                    if addr[0] == get_ip_from_name(message["to"]):
                         response["hasMessage"] = True
                         response["message"].append(message)
                         messages.pop(index)

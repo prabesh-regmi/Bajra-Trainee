@@ -18,16 +18,6 @@ HOST = "192.168.88.217"  # The server's hostname or IP address
 PORT = 65407  # The port used by the server
 
 
-def get_receiver_ip(name):
-    # print(name)
-    if name.lower() == 'prabesh':
-        return '10.10.100.117'
-    if name.lower() == 'kirti':
-        return '10.10.100.22'
-    if name.lower() == 'aayush':
-        return '10.10.100.120'
-
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -147,7 +137,6 @@ class Ui_MainWindow(object):
 
         plaintext = PlaintextMessage(message, 17)
         message = plaintext.get_message_text_encrypted()
-        receiver_ip = get_receiver_ip(receiver_ip)
 
         req = {
             "method": "POST",
