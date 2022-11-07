@@ -14,19 +14,18 @@ from ps4b import PlaintextMessage, CiphertextMessage
 import json
 
 
-
-HOST = "192.168.1.84"  # The server's hostname or IP address
+HOST = "192.168.88.217"  # The server's hostname or IP address
 PORT = 65407  # The port used by the server
 
+
 def get_receiver_ip(name):
-    print(name)
+    # print(name)
     if name.lower() == 'prabesh':
         return '10.10.100.117'
     if name.lower() == 'kirti':
         return '10.10.100.22'
     if name.lower() == 'aayush':
         return '10.10.100.120'
-    
 
 
 class Ui_MainWindow(object):
@@ -116,8 +115,8 @@ class Ui_MainWindow(object):
 
     def load_message(self):
         # print("load message")
-        req={
-            "method":"GET",
+        req = {
+            "method": "GET",
         }
         req = json.dumps(req)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -128,29 +127,32 @@ class Ui_MainWindow(object):
                 response = response.decode("utf-8")
                 response = json.loads(response)
                 if response["hasMessage"]:
-                    display_text =''
+                    display_text = ''
                     for message in response["message"]:
-                        message_from =message["from"]
+                        message_from = message["from"]
                         cipher_text = CiphertextMessage(message["message"])
                         message_information = cipher_text.decrypt_message()[1]
                         display_text += f"From: {message_from} \nMessage: {message_information} \n \n"
                     self.display_message_label.setText(display_text)
                 else:
-                    self.display_message_label.setText("You have no new message!!")
+                    self.display_message_label.setText(
+                        "You have no new message!!")
             except:
                 self.display_message_label.setText("Error Occurred!!")
 
     def send_data(self):
         receiver_ip = self.receiver_ip_input.text()
         message = self.message_input.toPlainText()
+        self.message_input.setPlainText('')
+
         plaintext = PlaintextMessage(message, 17)
         message = plaintext.get_message_text_encrypted()
-        # receiver_ip =get_receiver_ip(receiver_ip)
+        receiver_ip = get_receiver_ip(receiver_ip)
 
-        req={
-            "method":"POST",
-            "to":receiver_ip,
-            "message":message,
+        req = {
+            "method": "POST",
+            "to": receiver_ip,
+            "message": message,
         }
         req = json.dumps(req)
         # print(receiver_ip,message)
@@ -158,7 +160,7 @@ class Ui_MainWindow(object):
             s.connect((HOST, PORT))
             s.sendall(bytes(req, "utf-8"))
             response = s.recv(1024)
-                
+
             # response = response.decode("utf-8")
             # if "///" in response:
             #     sender = response.split("///")[0]
