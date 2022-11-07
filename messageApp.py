@@ -18,6 +18,15 @@ import json
 HOST = "192.168.1.84"  # The server's hostname or IP address
 PORT = 65407  # The port used by the server
 
+def get_receiver_ip(name):
+    if name.lower() == 'prabesh':
+        return '10.10.100.117'
+    if name.lower() == 'kirti':
+        return '10.10.100.22'
+    if name.lower() == 'aayush':
+        return '10.10.100.120'
+    
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -121,20 +130,21 @@ class Ui_MainWindow(object):
                     display_text =''
                     for message in response["message"]:
                         message_from =message["from"]
-                        ciphertext = CiphertextMessage(message["message"])
-                        message_information = ciphertext.decrypt_message()[1]
+                        cipher_text = CiphertextMessage(message["message"])
+                        message_information = cipher_text.decrypt_message()[1]
                         display_text += f"From: {message_from} \nMessage: {message_information} \n \n"
                     self.display_message_label.setText(display_text)
                 else:
                     self.display_message_label.setText("You have no new message!!")
             except:
-                self.display_message_label.setText("Error Occured!!")
+                self.display_message_label.setText("Error Occurred!!")
 
     def send_data(self):
         receiver_ip = self.receiver_ip_input.text()
         message = self.message_input.toPlainText()
         plaintext = PlaintextMessage(message, 17)
         message = plaintext.get_message_text_encrypted()
+        receiver_ip =get_receiver_ip(receiver_ip)
 
         req={
             "method":"POST",

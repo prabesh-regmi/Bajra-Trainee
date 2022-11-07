@@ -2,17 +2,17 @@ import socket
 import json
 
 
-HOST = "192.168.1.84"  # Standard loopback interface address (localhost)
+HOST = "192.168.88.217"  # Standard loopback interface address (localhost)
 PORT = 65407  # Port to listen on (non-privileged ports are > 1023)
 messages = []
 
 
 def get_name_from_ip(ip):
-    if ip == '1':
+    if ip == '10.10.100.22':
         return "Kirti"
-    elif ip == '2':
+    elif ip == '10.10.100.120':
         return "Aayush"
-    elif ip == '192.168.1.84':
+    elif ip == '10.10.100.117':
         return "Prabesh"
     else:
         return ip
