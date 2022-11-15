@@ -66,6 +66,7 @@
                             <field name="buyer_id" />
                             <field name="seller_id" />
                             <field name="tag_id" widget = "many2many_tags" />
+                            <field name="offer_ids" widget = "one2many" />
                         </group>
                     </group>
                 </sheet>

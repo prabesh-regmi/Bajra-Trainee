@@ -6,7 +6,7 @@ class EstateModel(models.Model):
     _description = "Estate Model"
 
     # Basic
-    
+
     name = fields.Char('Name', required=True)
     description = fields.Text('Description')
     postcode = fields.Char('Postcode')
@@ -53,3 +53,14 @@ class EstateModel(models.Model):
         for record in self:
             record.best_price = max(record.offer_ids.mapped(
                 "price")) if record.offer_ids else 0.0
+    
+    # OnChange Method
+    
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = 'north'
+        else:
+            self.garden_area = None
+            self.garden_orientation = None
