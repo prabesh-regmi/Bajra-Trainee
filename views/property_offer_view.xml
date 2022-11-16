@@ -1,0 +1,20 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<odoo>
+    <!-- Tree view to list all estate property tsh -->
+    <record id="view_estate_property_offer_tree" model="ir.ui.view">
+        <field name="name">estate.property.offer.tree</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="price"/>
+                <field name="partner_id"/>
+                <field name="validity"/>
+                <field name="date_deadline"/>
+                <button name="action_confirm" string="Confirm" type="object" icon="fa-check"/>
+                <button name="action_cancel" string="Cancel" type="object" icon="fa-times"/>
+                <!-- <button name="action_cancel" string="Cancel" states="draft,open" type="object" icon="fa-times"/> -->
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

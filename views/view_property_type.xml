@@ -29,7 +29,22 @@
                 <sheet>
                     <group >
                         <group>
-                            <field name="name"/>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+                            <!-- <notebook>
+                                <page string="Properties">
+                                    <field name="property_ids" readonly="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="expected_price"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook> -->
                         </group>
                     </group>
                 </sheet>

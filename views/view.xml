@@ -1,5 +1,122 @@
 <?xml version ="1.0" encoding ="utf-8"?>
 <odoo>
+    <!-- Form view to create new estate property -->
+    <record id="view_estate_property_form" model="ir.ui.view">
+        <field name="name">estate.property.form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <!-- <form>
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="name"/>
+                            <field name="description" />
+                            <field name="postcode" />
+                            <field name="date_availability" />
+                            <field name="expected_price" />
+                            <field name="selling_price" />
+                        </group>
+                        <group>
+                            <field name="bedrooms" />
+                            <field name="living_area" />
+                            <field name="facades" />
+                            <field name="garage" />
+                            <field name="garden" />
+                            <field name="garden_area" />
+                            <field name="garden_orientation" />
+                            <field name="total_area" />
+                        </group>
+                        <group>
+                            <field name="property_type_id" />
+                            <field name="buyer_id" />
+                            <field name="seller_id" />
+                            <field name="tag_id" widget = "many2many_tags" />
+                            <field name="offer_ids" widget = "one2many" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <group>
+                                    <field name="description" />
+                                    <field name="bedrooms" />
+                                    <field name="living_area" />
+                                    <field name="facades" />
+                                    <field name="garage" />
+                                    <field name="garden" />
+                                    <field name="garden_area" />
+                                    <field name="garden_orientataion" attrs = "{'invisible': [('garden' , '=', False)]}" />
+                                    <field name="total_area" attrs = "{'invisible': [('garden' , '=', False)]}" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form> -->
+            <form>
+                <header>
+                    <!-- <button name="action_sold" type="object" string="Sold" states="new,offer_received"/>
+                    <button name="action_sold" type="object" string="Sold" states="offer_accepted" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="new,offer_received,offer_accepted"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/> -->
+                    <button name="action_sold" type="object" string="Sold" class="oe_highlight"/>
+                    <!-- <button name="action_cancel" type="object" string="Cancel"/> -->
+                    <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="new,offer_received,offer_accepted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="tag_ids" widget="many2many_tags" />
+                    </div>
+                    <group>
+                        <group>
+                            <field name="state" string="Status" />
+                            <field name="property_type_id" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="best_price"/>
+                            <field name="selling_price"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                    <field name="garden"/>
+                                    <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="total_area"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <!-- <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'canceled'))]}"/> -->
+                            <field name="offer_ids"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <group>
+                                    <!-- <field name="user_id"/> -->
+                                    <field name="buyer_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <!-- Tree view to list all estate property -->
     <record id="view_estate_property_tree" model="ir.ui.view">
         <field name="name">estate.property.tree</field>
@@ -33,44 +150,6 @@
                 <field name="bedrooms"/>
                 <filter name="filter_name" string="Garden" domain="[('garden', '=', '2324')]"/>
             </search>
-        </field>
-    </record>
-    <!-- Form view to create new estate property -->
-    <record id="view_estate_property_form" model="ir.ui.view">
-        <field name="name">estate.property.form</field>
-        <field name="model">estate.property</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group >
-                        <group>
-                            <field name="name"/>
-                            <field name="description" />
-                            <field name="postcode" />
-                            <field name="date_availability" />
-                            <field name="expected_price" />
-                            <field name="selling_price" />
-                        </group>
-                        <group>
-                            <field name="bedrooms" />
-                            <field name="living_area" />
-                            <field name="facades" />
-                            <field name="garage" />
-                            <field name="garden" />
-                            <field name="garden_area" />
-                            <field name="garden_orientation" />
-                            <field name="total_area" />
-                        </group>
-                        <group>
-                            <field name="property_type_id" />
-                            <field name="buyer_id" />
-                            <field name="seller_id" />
-                            <field name="tag_id" widget = "many2many_tags" />
-                            <field name="offer_ids" widget = "one2many" />
-                        </group>
-                    </group>
-                </sheet>
-            </form>
         </field>
     </record>
     <!-- Action to go to estate form menu -->
