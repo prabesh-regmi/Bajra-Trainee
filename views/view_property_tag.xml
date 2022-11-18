@@ -5,19 +5,9 @@
         <field name="name">estate.property.tag.tree</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Property Tags" editable="bottom">
                 <field name="name"/>
             </tree>
-        </field>
-    </record>
-    <!-- Search view to querry estate property tsg-->
-    <record id="view_estate_property_tag_search" model="ir.ui.view">
-        <field name="name">estate.property.tag.search</field>
-        <field name="model">estate.property.tag</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-            </search>
         </field>
     </record>
     <!-- Form view to create new estate property tag -->

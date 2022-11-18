@@ -6,7 +6,12 @@ from odoo.exceptions import UserError, ValidationError
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'Estate Property Offer'
-
+    _sql_constraints = [
+        ('check_offer_price', 'CHECK(price > 0)',
+         'Offer Price must be positive.')
+    ]
+    _order = 'price desc'
+    
     # Basic
     price = fields.Float(string='Offer Price')
     validity = fields.Integer(string='Validity (days)', default=7)
@@ -25,10 +30,7 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(
         string='Deadline', compute='_compute_date_deadline', inverse='_inverse_date_deadline')
 
-    _sql_constraints = [
-        ('check_offer_price', 'CHECK(price > 0)',
-         'Offer Price must be positive.')
-    ]
+    
 
     # Compute Method
 

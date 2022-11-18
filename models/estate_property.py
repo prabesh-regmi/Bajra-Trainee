@@ -6,6 +6,13 @@ from odoo.tools import float_compare, float_is_zero
 class EstateModel(models.Model):
     _name = "estate.property"
     _description = "Estate Model"
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'Expected Price should be positive.'),
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
+         'Selling Price should be positive.')
+    ]
+    _order = 'id desc'
 
     # Basic
 
@@ -63,12 +70,7 @@ class EstateModel(models.Model):
     best_price = fields.Float(
         string='Best Price', compute='_compute_best_price')
 
-    _sql_constraints = [
-        ('check_expected_price', 'CHECK(expected_price > 0)',
-         'Expected Price should be positive.'),
-        ('check_selling_price', 'CHECK(selling_price >= 0)',
-         'Selling Price should be positive.')
-    ]
+    
 
     # Compute methods
 

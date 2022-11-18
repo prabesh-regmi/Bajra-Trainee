@@ -22,7 +22,7 @@
         id="estate_submenu_property_type" 
         name="Property Type"
         parent="estate_submenu_setting"
-        action="action_real_estate_property"
+        action="action_real_estate_property_type"
         sequence="0"/>
     <menuitem 
         id="estate_submenu_property_tag" 
