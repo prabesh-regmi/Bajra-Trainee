@@ -1,6 +1,6 @@
 <?xml version ="1.0" encoding ="utf-8"?>
 <odoo>
-    <!-- Tree view to list all estate property tsh -->
+    <!-- Tree view to list all estate property -->
     <record id="view_estate_property_tag_tree" model="ir.ui.view">
         <field name="name">estate.property.tag.tree</field>
         <field name="model">estate.property.tag</field>

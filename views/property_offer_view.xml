@@ -1,20 +1,39 @@
 <?xml version ="1.0" encoding ="utf-8"?>
 <odoo>
-    <!-- Tree view to list all estate property tsh -->
+    <!-- Form view to create offer -->
+    <record id="estate_property_offer_view_form" model="ir.ui.view">
+        <field name="name">estate.property.offer.form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Property Offer">
+                <group>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- Tree view to list all offer -->
     <record id="view_estate_property_offer_tree" model="ir.ui.view">
         <field name="name">estate.property.offer.tree</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Property Offers" editable="bottom" decoration-success="status == 'accepted'" decoration-danger="status=='refused'">
                 <field name="price"/>
                 <field name="partner_id"/>
                 <field name="validity"/>
                 <field name="date_deadline"/>
-                <button name="action_confirm" string="Confirm" type="object" icon="fa-check"/>
-                <button name="action_cancel" string="Cancel" type="object" icon="fa-times"/>
-                <!-- <button name="action_cancel" string="Cancel" states="draft,open" type="object" icon="fa-times"/> -->
+                <button name="action_confirm" type="object" title="Accept" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
+                <button name="action_cancel" type="object" title="Refuse" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
                 <field name="status"/>
             </tree>
         </field>
+    </record>
+        <!-- Action for estate property offer -->
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="domain">[('property_type_id','=', active_id)]</field>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>

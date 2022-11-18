@@ -18,7 +18,7 @@ class EstatePropertyOffer(models.Model):
 
     # Special
     status = fields.Selection(
-        selection=[('accepted', 'Accepted',), ('refused', 'Refused')], string='Status', copy=False)
+        selection=[('accepted', 'Accepted',), ('refused', 'Refused')], string='Status', copy=False,default=False)
 
     # Relational
     partner_id = fields.Many2one(
