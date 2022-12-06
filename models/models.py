@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
+
+# Creating model of Trainee
+
+# Basic
 
 
-# class trainee_details(models.Model):
-#     _name = 'trainee_details.trainee_details'
-#     _description = 'trainee_details.trainee_details'
+class TraineeDetails(models.Model):
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    name = "trainee.details"
+    _description = "Model of Trainee"
+
+    name = fields.Char(string="Name", required=True)
+
+    address = fields.Char(string="Address")
