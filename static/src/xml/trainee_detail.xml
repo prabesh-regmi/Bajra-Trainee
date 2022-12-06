@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space='preserve'>
+    <div t-name="trainee">
+        <div class="c_container"></div>
+    </div>
+    <div t-name="trainee.input">
+        <h3 class=""> Fill out the form below: </h3>
+    </div>
+</templates>
