@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="web_assets_backend_ext" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <link rel="stylesheet" type="text/css" href="/trainee-details/static/src/css/style.css"/>
+        <script type="text/javascript" src="/trainee-details/static/src/js/script.js" />
+    </xpath>
+</template>
+</odoo>
