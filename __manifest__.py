@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "trainee_details",
+    'name': "Trainee  Details",
+    'application':True,
+    'installable':True,
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -32,4 +34,5 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'sequence': -4,
 }
