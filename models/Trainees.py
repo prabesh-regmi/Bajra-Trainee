@@ -18,3 +18,17 @@ class TraineeDetails(models.Model):
     stack = fields.Selection(string="Stack", selection=[('python', 'Python'), (
         'ror', 'Ruby On Rails'), ('qa', 'Quality Assurance'), ('angular', 'Angular')])
     dob = fields.Date(string="Date of Birth")
+
+    # Create new trainee and save to database
+    @api.model
+    def create_trainee(self, vals):
+        super(TraineeDetails, self).create(vals)
+
+    # Delete trainee from database with id=id
+    def delete_trainee(self):
+        return super(TraineeDetails, self).unlink()
+
+    # Get all trainees
+    def get_all_trainees(self):
+
+        return {"data": self.env['trainee.details'].search([]).read()}

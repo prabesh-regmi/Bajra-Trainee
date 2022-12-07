@@ -1,9 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space='preserve'>
     <div t-name="trainee">
-        <div class="c_container"></div>
+        <div class="c_form_container">
+        </div>
+        <div class="c_trainees_list_container">
+            </div>
     </div>
     <div t-name="trainee.input">
-        <h3 class=""> Fill out the form below: </h3>
+        <div class="container mt-4 col-8 shadow-lg p-3 mb-5 bg-white rounded">
+            <h3 class=""> Fill out the form below: </h3>
+            <form class="trainee-form">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control trainee-name" placeholder="Enter Name"/>
+                            <small class="form-text text-muted">This field is required.</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control trainee-address" placeholder="Enter Address"/>
+                            <small class="form-text text-muted">This field is required.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control trainee-phone_number" placeholder="Enter Phone number"/>
+                            <small class="form-text text-muted invalid-feedback">This field is required.</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Stack</label>
+                            <select class="form-group trainee-stack">
+                                <option >Select Stack</option>
+                                <option value="python">Python</option>
+                                <option value="ror">Ruby on Rails</option>
+                                <option value="qa">Quality Assurance</option>
+                                <option value="angular">Angular</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <label class="date-input-label">
+                                <input type="date" class="form-control trainee-dob"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div t-name="trainee.list">
+        <t t-if="data">
+            <div class="container col-8">
+                <h2>Trainees:</h2>
+            </div>
+            <div class="container mt-4 col-8 shadow-lg p-3 mb-5 bg-white rounded">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%" scope="col">#</th>
+                            <th style="width: 15%" scope="col">Name</th>
+                            <th style="width: 15%" scope="col">Address</th>
+                            <th style="width: 15%" scope="col">Phone</th>
+                            <th style="width: 10%" scope="col">Age</th>
+                            <th style="width: 10%" scope="col">Stack</th>
+                            <th style="width: 20%" scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="data" t-as="item">
+                            <tr>
+                                <th scope="row">
+                                    <t t-esc="item_index"/>
+                                </th>
+                                <td>
+                                    <t t-esc="item.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.address"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.phone_number"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.stack"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.dob"/>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm edit">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete">Delete</button>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
     </div>
 </templates>
