@@ -22,7 +22,11 @@ class TraineeDetails(models.Model):
     # Create new trainee and save to database
     @api.model
     def create_trainee(self, vals):
+        if("id" in vals):
+            self.env['trainee.details'].search([("id", '=', vals['id'])]).write(vals)
+            return {'data': vals}
         super(TraineeDetails, self).create(vals)
+        return {'data': vals}
 
     # Delete trainee from database with id=id
     def delete_trainee(self):
@@ -30,5 +34,8 @@ class TraineeDetails(models.Model):
 
     # Get all trainees
     def get_all_trainees(self):
-
         return {"data": self.env['trainee.details'].search([]).read()}
+
+    def edit_trainee(self, vals):
+        self.env['trainee.details'].search([("id", '=', vals.id)]).write(vals)
+        return {'data': vals}

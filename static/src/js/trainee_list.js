@@ -11,7 +11,6 @@ odoo.define('trainee.list.widget', function (require) {
             console.log("state", state.trainee_list)
             this._super.apply(this, arguments);
             this.trainee_list = state.trainee_list;
-            // console.log("showtraineeData", data)
         },
 
         start: function () {
@@ -24,7 +23,7 @@ odoo.define('trainee.list.widget', function (require) {
             // this.$traineeForm = this.$widget.find('.trainee-form');
             this.$widget.appendTo(this.$el);
             _.each(this.$('.delete'), function (btn, index) {
-                // btn.bind("click", () => { console.log("delete") })
+                // btn.bind("click", () => { soconle.log("delete") })
                 btn.addEventListener("click", () => {
                     self._rpc({
                         model: 'trainee.details',
@@ -32,8 +31,16 @@ odoo.define('trainee.list.widget', function (require) {
                         args: [self.trainee_list[index].id]
                     }).then(() => {
                         self.do_warn("Deletion", "You just deleted a trainee record")
-                        location.reload()
+                        self.trigger_up('itemDelete', { index: index });
+
                     })
+                })
+            });
+            _.each(this.$('.table-row'), function (row, index) {
+                // btn.bind("click", () => { console.log("delete") })
+                row.addEventListener("click", () => {
+                    // console.log("row", index)
+                    self.trigger_up('rowClick', { index: index });
                 })
             });
         }
