@@ -17,3 +17,15 @@ class Task(models.Model):
         'todo.list',
         string="Todo list"
     )
+    user_id = fields.Many2one(
+        'res.users', 'Current User', default=lambda self: self.env.user)
+    # Create new Task
+
+    @api.model
+    def create_task(self, vals):
+        return super(Task, self).create(vals)
+
+    # Get all Tasks
+    def get_all_tasks(self):
+        user_id = self.env.user.id
+        return {"data": self.env['todo.task'].search([("user_id", "=", user_id)]).read()}
