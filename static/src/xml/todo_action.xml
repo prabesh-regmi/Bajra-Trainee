@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space='preserve'>
     <div t-name="todo.action">
-    <h1>Hello</h1>
+        <h1>Hello</h1>
+        <form class="create-task-form" style="margin-top:20px;width:300px">
+            <input type="text" placeholder="Enter task name"/>
+            <select>
+                <option>Personal</option>
+                <option>Work</option>
+                <option>College Word</option>
+            </select>
+            <select>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <input type="datetime-local"/><br/>
+            <button type="submit">Add Task</button>
+        </form>
+        <form class="create-list-form" style="margin-top:20px;width:300px">
+            <input type="text" class="list-name" name="listName" placeholder="Enter list name"/>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+    <div t-name="navbar">
+        TODO
     </div>
 </templates>
