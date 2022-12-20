@@ -3,7 +3,27 @@
     <template id="web_assets_backend_ext" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>
+            <script type="text/javascript" src="/todo/static/src/js/navbar.js" />
+            <script type="text/javascript" src="/todo/static/src/js/overview.js" />
+            <script type="text/javascript" src="/todo/static/src/js/task_list.js" />
+            <script type="text/javascript" src="/todo/static/src/js/single_list_name.js" />
+            <script type="text/javascript" src="/todo/static/src/js/list_name.js" />
+            <script type="text/javascript" src="/todo/static/src/js/task_list_section.js" />
             <script type="text/javascript" src="/todo/static/src/js/todo_action_client.js" />
         </xpath>
     </template>
-</odoo> 
+    <!-- <template id="my_assets_id" name="website assets for my module" inherit_id="website.theme_customize">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
+        </xpath>
+    </template> -->
+    <template id="theme_login" name="Cosmoafsd" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>        
+        </xpath>
+    </template>
+</odoo>

@@ -9,12 +9,22 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/access_right.xml',
+        'security/ir.model.access.csv',
         'views/views.xml',
-        'views/templates.xml',
         'views/assets.xml',
+        'views/nav.xml',
+        'views/login.xml',
     ],
-    'qweb': ['static/src/xml/todo_action.xml'],
+    'qweb': [
+        'static/src/xml/todo_action.xml',
+        'static/src/xml/navbar.xml',
+        'static/src/xml/overview.xml',
+        'static/src/xml/task_list.xml',
+        'static/src/xml/list_name.xml',
+        'static/src/xml/task_list_section.xml'
+
+    ],
     'application': True,
     'installable': True,
     'sequence': -10

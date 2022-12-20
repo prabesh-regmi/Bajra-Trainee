@@ -1,0 +1,180 @@
+/* Login Section */
+.shadow-box {
+    background: #ffffff;
+    box-shadow: 0px 16px 16px #f7f7f7, 0px 24px 32px #f7f7f7;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+.box-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical-center {
+    position: relative;
+    top: 45%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.form-container {
+    padding-right: 20px;
+    min-width: 370px;
+}
+
+.form-title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+}
+
+.form-info {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #828282;
+}
+
+.form-group {
+    margin-top: 14px;
+}
+
+.label-text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+select {
+    padding-left: 30px;
+}
+
+.email::after {
+    content: "⛅";
+}
+
+.left-inner-addon {
+    position: relative;
+}
+
+.left-inner-addon input {
+    padding-left: 35px !important;
+}
+
+.left-inner-addon i {
+    position: absolute;
+    padding-left: 10px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #be263b;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.eye-icon {
+    float: right;
+    margin-left: -35px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+input[type="radio"] {
+    /* remove standard background appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* create custom radiobutton appearance */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    /* padding: 2px; */
+    /* background-color only for content */
+    background-clip: content-box;
+    /* border: 5px solid #be263b; */
+    background-color: #E0E0E0;
+    border-radius: 50%;
+}
+
+/* appearance for checked radiobutton */
+input[type="radio"]:checked {
+    border: 5px solid #be263b;
+    background-color: #ffffff;
+
+}
+
+.radio-label-text {
+    position: relative;
+    width: 31px;
+    height: 24px;
+    left: -15px;
+    top: -5px;
+    margin-left: 30px;
+    margin-top: 5px;
+    color: #000000;
+
+    /* opacity: 0.7; */
+
+}
+
+.dob-input {
+    display: flex;
+    gap: 15px;
+}
+
+.phone-code-select {
+    flex: 1;
+}
+
+.phone-input {
+    flex: 2;
+}
+
+.text-red {
+    color: #be263b;
+}
+
+.text-end {
+    text-align: right !important
+}
+.error-message{
+    background-color: rgba(251, 220, 211, 0.25);
+    padding:8px;
+}
