@@ -1,0 +1,37 @@
+<template id="template1" xml:space="preserve">
+    <t t-name="navbar">
+        <div class="my-navbar">
+            <ul>
+                <li class="logo">TODO APP</li>
+            </ul>
+            <ul>
+                <li class="user-profile">
+                    <t t-if="name">
+                        <h2><t t-esc="name"/></h2>
+                        
+                    </t>
+                    <t t-else="">
+                        <h2>AK</h2>
+                    </t>
+                </li>
+                <a class="logout" href="/web/session/logout?redirect=/web/login">
+                    <i>
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M13.333 14.167V11.667H7.5V8.333H13.333V5.833L17.5 10L13.333 14.167ZM11.667 1.667C12.109 1.667 12.533 1.842 12.845 2.155C13.158 2.467 13.333 2.891 13.333 3.333V5H11.667V3.333H4.167V16.667H11.667V15H13.333V16.667C13.333 17.109 13.158 17.533 12.845 17.845C12.533 18.158 12.109 18.333 11.667 18.333H4.167C3.725 18.333 3.301 18.158 2.988 17.845C2.676 17.533 2.5 17.109 2.5 16.667V3.333C2.5 2.891 2.676 2.467 2.988 2.155C3.301 1.842 3.725 1.667 4.167 1.667H11.667Z"
+                                fill="#4F4F4F"
+                            />
+                        </svg>
+                    </i>
+                    Logout
+                </a>
+            </ul>
+        </div>
+    </t>
+</template>
