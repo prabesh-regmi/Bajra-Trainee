@@ -1,0 +1,44 @@
+<template id="template_task_list" xml:space="preserve">
+
+    <t t-name="todo.task">
+        <t t-if="tasks.length">
+            <div class="list card">
+                <t t-foreach="tasks" t-as="task">
+                    <t t-if="task_index != 0">
+                        <hr/>
+                    </t>
+                    <div class="task-list-single">
+                        <div class="check-task">
+                            <input type="checkbox" class="check-box" />
+                            <div>
+                                <h3 class="task-title"><t t-esc="task.name"/></h3>
+                                <p class="list-small"><t t-esc="task.task_list_id[1]"/></p>
+                            </div>
+                        </div>
+                        <t t-if="task.priority=='high'"> 
+                            <div class="priority priority-high">
+                                <small class="color-red">High</small>
+                            </div>
+                        </t>
+                        <t t-elif="task.priority=='medium'">
+                            <div class="priority priority-medium">
+                                <small class="color-green">Medium</small>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="priority priority-low">
+                                <small class="color-orange">Low</small>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </t>
+        <t t-else="">
+            <p>No tasks available !!</p>
+        </t>
+            
+    </t>
+
+
+</template>

@@ -1,28 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space='preserve'>
     <div t-name="todo.action">
-        <h1>Hello</h1>
-        <form class="create-task-form" style="margin-top:20px;width:300px">
-            <input type="text" placeholder="Enter task name"/>
-            <select>
-                <option>Personal</option>
-                <option>Work</option>
-                <option>College Word</option>
-            </select>
-            <select>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-            </select>
-            <input type="datetime-local"/><br/>
-            <button type="submit">Add Task</button>
-        </form>
-        <form class="create-list-form" style="margin-top:20px;width:300px">
-            <input type="text" class="list-name" name="listName" placeholder="Enter list name"/>
-            <button type="submit">Add Task</button>
-        </form>
+        <div class="todo-body">
+            <div class="nav-section"></div>
+            <section>
+                <div class="flex-s-between">
+                    <div class="date-area">
+                        <h2><t t-esc="new Date().toDateString()"/></h2>
+                        <p>
+                            You have to keep up the pace to accomplish your task in time
+                            <i>
+                                <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 14 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M7.00016 12.3333C9.9335 12.3333 12.3335 9.93325 12.3335 6.99992C12.3335 4.06659 9.9335 1.66659 7.00016 1.66659C4.06683 1.66659 1.66683 4.06659 1.66683 6.99992C1.66683 9.93325 4.06683 12.3333 7.00016 12.3333ZM7.00016 0.333252C10.6668 0.333252 13.6668 3.33325 13.6668 6.99992C13.6668 10.6666 10.6668 13.6666 7.00016 13.6666C3.3335 13.6666 0.333496 10.6666 0.333496 6.99992C0.333496 3.33325 3.3335 0.333252 7.00016 0.333252ZM9.20016 9.79992L8.3335 10.3333L6.3335 6.86659V3.66659H7.3335V6.59992L9.20016 9.79992Z"
+                                        fill="#828282"
+                                    />
+                                </svg>
+                            </i>
+                        </p>
+                    </div>
+                    <!-- <div class="new-task-btn">
+                        <p>Create new Task</p>
+                    </div> -->
+                    <button class="new-task-btn">Create new Task</button>
+                </div>
+            </section>
+            <div class="overview-section"></div>
+            <section>
+            <div class="task-list-section">
+                <div class="today-task-list quick-task-list-section">
+                        <!-- <div class="todays-task-section"></div> -->
+                </div>
+                <div class="list-name-list">
+                    
+                    <div class="flex-s-between">
+                        <div class="title-text">
+                            <h1>List Name</h1>
+                        </div>
+                        <!-- <div class="create-new-list">
+                            <p>Create new list</p>
+                        </div> -->
+                        <button class="create-new-list">Create new list</button>
+                    </div>
+                    <div class="list-name-section"></div>
+                </div>
+            </div>
+        </section>
+            <div class="modal modal-task">
+            </div>
+            <div class="modal modal-list">
+                <!-- This is the background overlay -->
+                <div class="modal-content">
+                    <!-- This is the actual modal/popup box -->
+                    <span class="modal-close">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.467 2.037L13.963 0.533L8 6.496L2.038 0.533L0.534 2.037L6.496 8L0.534 13.963L2.038 15.467L8 9.504L13.963 15.467L15.467 13.963L9.504 8L15.467 2.037Z" fill="#333333" />
+                        </svg>
+                    </span>
+                    <h1>Create List</h1>
+                    <form class="create-list-form">
+                        <label>List name</label>
+                        <input type="text" name="list-name" class="list-name" placeholder="Enter list name" />
+                        <small class="invalid-feedback">
+                            This field is required
+                        </small>
+                    <div class="modal-footer">
+                        <button class="modal-btn cancel" type="button">Cancel</button>
+                        <button class="modal-btn create" type="submit">Add list</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div t-name="navbar">
-        TODO
-    </div>
+    
+    <t t-name="task-modal">
+        <div class="modal-content">
+            <!-- This is the actual modal/popup box -->
+            <span class="modal-close">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.467 2.037L13.963 0.533L8 6.496L2.038 0.533L0.534 2.037L6.496 8L0.534 13.963L2.038 15.467L8 9.504L13.963 15.467L15.467 13.963L9.504 8L15.467 2.037Z" fill="#333333" />
+                </svg>
+            </span>
+            <h1>Create task</h1>
+            <form class="create-task-form">
+                <label>Task name</label>
+                <input type="text" name="task-name" class="task-name" placeholder="Enter task name" />
+                <small class="invalid-feedback">
+                    This field is required
+                </small>
+                <div class="form-select-container">
+                    <div class="select-div">
+                        <label>Choose list</label>
+                        <div class="dropdown select-task-list">
+                            <select class="form-select task-list-input">
+                                <option value=""> -- select an option -- </option>
+                                <t t-foreach="lists" t-as="list">
+                                    <option t-att="{'value':list.id}"><t t-esc="list.name"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        <small class="invalid-feedback">
+                            This field is required
+                        </small>
+                    </div>
+                    <div class="select-div">
+                        <label>Choose priority</label>
+                        <div class="dropdown select-priority">
+                            <select class="form-select task-priority">
+                                <option value=""> -- select an option -- </option>
+                                <option t-att="{'value':'high'}">High</option>
+                                <option t-att="{'value':'medium'}">Medium</option>
+                                <option t-att="{'value':'low'}">Low</option>
+                            </select>
+                        </div>
+                        <small class="invalid-feedback">
+                            This field is required
+                        </small>
+                    </div>
+                    <div class="select-div">
+                        <label>Set date and time</label>
+                        <input type="date" name="date-time" class="form-select date-input" placeholder="Choose date and time" />
+                        <small class="invalid-feedback">
+                            This field is required
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn cancel" type="button">Cancel</button>
+                    <button class="modal-btn create" type="submit">Add task</button>
+                </div>
+            </form>
+        </div>
+    </t>
+
 </templates>

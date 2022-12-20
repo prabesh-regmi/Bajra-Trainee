@@ -1,0 +1,23 @@
+<template id="template_task_list" xml:space="preserve">
+    
+    <t t-name="quick.task.list.section">
+        <div class="quick-todays-task-section">
+            <div class="title-text">
+                <h1>
+                    <t t-if="displayOption =='upcoming'">
+                        Upcoming Tasks
+                    <small class="task-count"><t t-esc="tasks.upcoming_tasks.length"/></small>
+                    </t>
+                    <t t-elif="displayOption =='today'">
+                        Today's Tasks
+                    <small class="task-count"><t t-esc="tasks.today_tasks.length"/></small>
+                    </t>
+                    <t t-elif="displayOption =='overdue'">
+                        Overdue Tasks
+                    <small class="task-count"><t t-esc="tasks.overdue_tasks.length"/></small>
+                    </t>
+                </h1>
+            </div>
+        </div>
+    </t>
+</template>
