@@ -19,8 +19,10 @@
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
         </xpath>
     </template> -->
-    <template id="theme_login" name="Cosmoafsd" inherit_id="web.assets_frontend">
+    <template id="load_custom_css" name="Custom Css" inherit_id="web.assets_frontend">
         <xpath expr="." position="inside">
+            <xpath expr="." position="inside">
+            </xpath>
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>        

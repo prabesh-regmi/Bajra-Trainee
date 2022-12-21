@@ -13,8 +13,8 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/assets.xml',
-        'views/nav.xml',
         'views/login.xml',
+        'views/signup.xml',
     ],
     'qweb': [
         'static/src/xml/todo_action.xml',
