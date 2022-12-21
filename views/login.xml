@@ -68,20 +68,22 @@
                                     <t t-esc="error" />
                                 </p>
                             </t>
-                            <p class="text-end text-red">Forget password ?</p>
+                            <p class="text-end">
+                                <a href="/web/reset_password" class="text-end">Forget password ?</a>
+                            </p>
                             <div class="form-group">
                                 <input type="submit" value="Login" />
                             </div>
                             <p class="text-center">
                                 <small>Not registered yet ? </small>
-                                <i class="text-red">Create new account</i>
+                                <a href="/web/signup">Create new account</a>
                             </p>
                         </form>
                     </div>
                     <div class="image-container">
                         <div class="image login-image vertical-center">
                             <img class="form-input" src="/todo/static/src/images/writing.png"
-                                alt="image not found" />
+                                alt="image not found"/>
                         </div>
                     </div>
                 </div>
