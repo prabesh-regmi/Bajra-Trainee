@@ -66,16 +66,18 @@ small {
 section {
     padding: 0px 40px;
     margin-bottom: 16px;
-    background-color: #fbfcfd;
+    /* background-color: #ffffff; */
 }
 
 .user-profile {
     background: rgba(251, 220, 211, 0.25);
     border-radius: 50%;
-    height: 48px;
+    /* height: 48px; */
+    aspect-ratio: 1 / 1;
     /* responsive  */
     width: 48px;
     /* responsive  */
+    text-align: center;
 }
 .user-profile:hover{
     background: rgba(251, 220, 211, 0.25);
@@ -90,6 +92,7 @@ section {
     color: #be263b;
     padding: 12px 12px;
     /* responsive  */
+    margin: 0px;
 }
 .user-profile h2:hover{
     color: #ffffff;
@@ -193,7 +196,7 @@ section {
 }
 
 .list {
-    padding: 20px 40px 0px 40px;
+    padding: 20px 40px 10px 40px;
 }
 
 .task-list-section {
@@ -296,6 +299,9 @@ section {
     font-size: 18px;
     line-height: 26px;
     color: #333333;
+}
+h2.accordion:last-child{
+    border-bottom: 1px solid #ffffff;
 }
 
 .active {

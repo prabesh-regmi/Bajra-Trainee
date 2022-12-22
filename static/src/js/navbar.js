@@ -15,8 +15,7 @@ odoo.define('todo.navbar', function (require) {
         },
         start: function(){
             var self = this;
-            var name = this.user_name.split(" ")
-            var username = name[0][0]+name[1][0];
+            let username = this.user_name.split(" ").map(str => str[0]).join("");
             this.$navbar = $(QWeb.render('navbar',{"name":username}));
             this.$navbar.appendTo(this.$el);
             return Promise.all([this._super.apply(this,arguments)])
