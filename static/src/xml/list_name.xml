@@ -1,9 +1,15 @@
 <template id="template_list_name">
 
     <t t-name="todo.list.name">
-        <div class="list card">
-            <div class="single-list-name-section"></div>
-        </div>
+        <t t-if="list_length">
+            
+            <div class="list card">
+                <div class="single-list-name-section"></div>
+            </div>
+        </t>
+        <t t-else="">
+            <p>No list available!! create new list</p>
+        </t>
     </t>
     
     <t t-name="todo.single.list.name">

@@ -26,7 +26,7 @@ odoo.define('todo.list.name', function (require) {
         },
         start: function () {
             var self = this;
-            this.$list_name = $(QWeb.render('todo.list.name'));
+            this.$list_name = $(QWeb.render('todo.list.name',{'list_length':self.list_names.length}));
             this.$list_name.appendTo(this.$el);
 
             // task list widget create and append to client action

@@ -90,16 +90,20 @@ odoo.define('todo.action.client', function (require) {
                     method: 'create_task_list',
                     args: [{ "name": nameInput }]
                 }).then(response => {
-                    self._closeModal();
                     self.do_notify("Success!", "New list Created!!");
                     // list name widget create and append to client action
+                    self.list_names.push(response[0]);
                     self.$('.list-name-section').empty();
+                    self.$('.modal-task').empty();
+                    
+                    var task_modal = $(QWeb.render('task-modal', { "lists": this.list_names }))
+                    task_modal.appendTo(self.$('.modal-task'))
                     self.task_list_name = new ListNameWidget(self);
                     self.task_list_name.appendTo(self.$('.list-name-section'))
+                    self._closeModal();
 
                 });
             } else {
-                console.log("nogjioasjfkl", $('.create-list-form small'));
                 $('.create-list-form small').addClass('d-block');
             }
         },
