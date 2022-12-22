@@ -1,5 +1,6 @@
 <template id="template_list_name">
 
+    <!-- Template to render list names -->
     <t t-name="todo.list.name">
         <t t-if="list_length">
             
@@ -12,6 +13,7 @@
         </t>
     </t>
     
+    <!-- Template to render single list name -->
     <t t-name="todo.single.list.name">
         <div class="single-list-name">
             <h2 class="accordion">
@@ -19,7 +21,6 @@
                 <small class="task-count"><t t-esc="tasks_count"/></small>
             </h2>
             <div class="panel task-inside-list-section">
-                <!-- <div class="task-inside-list-section"></div> -->
             </div>
         </div>
     </t>

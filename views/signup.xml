@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+<!-- Custom signup template -->
     <template id="custom_signup" name="Signup" inherit_id="auth_signup.signup">
         <xpath expr="//form" position="replace">
                 <form role="form" method="post">

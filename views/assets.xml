@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+<!-- load custom css and js in web.assets_backend -->
     <template id="web_assets_backend_ext" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
@@ -14,6 +15,7 @@
             <script type="text/javascript" src="/todo/static/src/js/todo_action_client.js" />
         </xpath>
     </template>
+    <!-- load custom css in web.assets_frontend -->
     <template id="custom_assets_frontend" inherit_id="web.assets_frontend"
         name="custom_frontend_css">
         <xpath expr="//link[last()]" position="after">
@@ -22,6 +24,7 @@
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
         </xpath>
     </template>
+    <!-- Inherit web.login_layout -->
     <template id="login_layout" name="Login" inherit_id="web.login_layout">
         <xpath expr="//div" position="replace">
             <t t-raw="0" />

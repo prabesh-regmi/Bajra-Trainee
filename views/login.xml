@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- Custom login template -->
     <template id="custom_login" name="Login" inherit_id="web.login">
         <xpath expr="//form" position="replace">
                 <div class="box-container shadow-box">

@@ -1,5 +1,5 @@
 <template id="template_task_list" xml:space="preserve">
-
+    <!-- Task list  -->
     <t t-name="todo.task">
         <t t-if="tasks.length">
             <div class="list card">

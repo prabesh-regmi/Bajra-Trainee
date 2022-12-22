@@ -1,5 +1,5 @@
 <template id="template_task_list" xml:space="preserve">
-    
+    <!-- Today's tasks list section -->
     <t t-name="quick.task.list.section">
         <div class="quick-todays-task-section">
             <div class="title-text">

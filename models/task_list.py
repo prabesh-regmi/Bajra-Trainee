@@ -23,6 +23,7 @@ class Task_list(models.Model):
     # Create new Task List
     @api.model
     def create_task_list(self, vals):
+        # Save data if name is not null
         if vals["name"]:
             list_name = super(Task_list, self).create(vals)
             return list_name.read()
@@ -30,6 +31,5 @@ class Task_list(models.Model):
             raise UserError("Null value")
 
     # Get all Tasks List
-
     def get_all_tasks_list(self):
         return {"data": self.env['todo.list'].search([]).read()}

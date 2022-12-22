@@ -17,6 +17,7 @@
         'views/signup.xml',
         'views/reset-password.xml',
     ],
+    # Load qweb templates
     'qweb': [
         'static/src/xml/todo_action.xml',
         'static/src/xml/navbar.xml',

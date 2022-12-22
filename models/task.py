@@ -22,10 +22,11 @@ class Task(models.Model):
     )
     user_id = fields.Many2one(
         'res.users', 'Current User', default=lambda self: self.env.user)
-    # Create new Task
 
+    # Create new Task
     @api.model
     def create_task(self, vals):
+        # Only save data if all values is present
         if vals["name"] and vals["priority"] and vals["date_time"] and vals["task_list_id"]:
             task = super(Task, self).create(vals)
             return task.read()
@@ -36,6 +37,8 @@ class Task(models.Model):
     def get_all_tasks(self):
         user_id = self.env.user.id
         return {"data": self.env['todo.task'].search([("user_id", "=", user_id)]).read()}
+
+    # Get all data of specific list id
     @api.model
     def get_task_with_task_list_id(self,vals):
         user_id = self.env.user.id
