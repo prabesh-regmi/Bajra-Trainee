@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="custom_signup" name="Signup" inherit_id="auth_signup.signup">
-        <xpath expr="." position="replace">
-            <div>
-                <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
-                <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>     
-                <!-- <t t-call="web.frontend_layout">
-                    <t t-set="no_header" t-value="True" />
-                <t t-set="no_footer" t-value="True" /> -->
+        <xpath expr="//form" position="replace">
                 <form role="form" method="post">
                     <div class="box-container shadow-box signup-first">
                         <div class="flex-container">
@@ -247,8 +240,6 @@
                     secondInputSection.style.left="50%";
                     })
                 </Script>
-            <!-- </t> -->    
-            </div>
         </xpath>
         
     </template>

@@ -2,9 +2,9 @@
 <odoo>
     <template id="web_assets_backend_ext" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
             <script type="text/javascript" src="/todo/static/src/js/navbar.js" />
             <script type="text/javascript" src="/todo/static/src/js/overview.js" />
             <script type="text/javascript" src="/todo/static/src/js/task_list.js" />
@@ -14,18 +14,17 @@
             <script type="text/javascript" src="/todo/static/src/js/todo_action_client.js" />
         </xpath>
     </template>
-    <!-- <template id="my_assets_id" name="website assets for my module" inherit_id="website.theme_customize">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
+    <template id="custom_assets_frontend" inherit_id="web.assets_frontend"
+        name="custom_frontend_css">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
         </xpath>
-    </template> -->
-    <template id="load_custom_css" name="Custom Css" inherit_id="web.assets_frontend">
-        <xpath expr="." position="inside">
-            <xpath expr="." position="inside">
-            </xpath>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css"/>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css"/>
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css"/>        
+    </template>
+    <template id="login_layout" name="Login" inherit_id="web.login_layout">
+        <xpath expr="//div" position="replace">
+            <t t-raw="0" />
         </xpath>
     </template>
 </odoo>
