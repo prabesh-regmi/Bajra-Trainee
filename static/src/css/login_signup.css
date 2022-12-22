@@ -61,22 +61,10 @@ select,
 input[type="text"],
 input[type="date"],
 input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 24px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-input[type="text"],
-input[type="date"],
-input[type="email"],
 input[type="password"],
 .form-select {
     width: 100%;
-    padding: 12px 24px 12px 12px;
+    padding: 24px 24px 24px 12px;
     -moz-padding-start: calc(0.75rem - 3px);
     font-size: 1rem;
     font-weight: 400;
@@ -96,9 +84,21 @@ input[type="password"],
 
 
 select {
-    padding: 14px 30px;
+    padding: 12px 30px;
     background-color: #ffffff;
 }
+select:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+.form-select:focus{
+    border: none;
+    border: 1px solid #be263b;
+    box-shadow: none;
+    background-color: rgba(190, 38, 59, 0.05);
+}
+
 
 .email::after {
     content: "⛅";
@@ -133,8 +133,7 @@ input[type="submit"],input[type="button"] {
 }
 
 .eye-icon {
-    float: right;
-    margin-left: -35px;
+    margin-left: 310px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);

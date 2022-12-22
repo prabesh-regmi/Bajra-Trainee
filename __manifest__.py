@@ -15,6 +15,7 @@
         'views/assets.xml',
         'views/login.xml',
         'views/signup.xml',
+        'views/reset-password.xml',
     ],
     'qweb': [
         'static/src/xml/todo_action.xml',
