@@ -206,3 +206,15 @@ label {
     border-radius: 4px;
     cursor: pointer;
 }
+.invalid-input{
+    border: none!important ;
+    border: 1px solid #be263b!important;
+    box-shadow: none!important;
+    background-color: rgba(190, 38, 59, 0.05)!important;
+}
+.valid{
+    color:#219653;
+}
+.invalid{
+    color:#EB5757;
+}

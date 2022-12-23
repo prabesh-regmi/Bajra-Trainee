@@ -64,7 +64,7 @@ input[type="email"],
 input[type="password"],
 .form-select {
     width: 100%;
-    padding: 24px 24px 24px 12px;
+    padding: 24px 12px;
     -moz-padding-start: calc(0.75rem - 3px);
     font-size: 1rem;
     font-weight: 400;
@@ -84,7 +84,7 @@ input[type="password"],
 
 
 select {
-    padding: 12px 30px;
+    padding: 12px 30px!important;
     background-color: #ffffff;
 }
 select:focus,
@@ -92,13 +92,12 @@ input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
-.form-select:focus{
+.form-select:focus {
     border: none;
     border: 1px solid #be263b;
     box-shadow: none;
     background-color: rgba(190, 38, 59, 0.05);
 }
-
 
 .email::after {
     content: "⛅";
@@ -121,7 +120,8 @@ input[type="password"]:focus,
     transform: translateY(-50%);
 }
 
-input[type="submit"],input[type="button"] {
+input[type="submit"],
+input[type="button"] {
     width: 100%;
     background-color: #be263b;
     color: white;
@@ -139,6 +139,7 @@ input[type="submit"],input[type="button"] {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    width: 12px!important;
 }
 
 input[type="radio"] {
@@ -199,18 +200,22 @@ input[type="radio"]:checked {
 .text-end {
     text-align: right !important
 }
-.error-message{
+
+.error-message {
     background-color: rgba(251, 220, 211, 0.25);
-    padding:8px;
+    padding: 8px;
 }
-.signup-second{
-    left:-150%;
+
+.signup-second {
+    left: -150%;
     transition: 0.6s ease;
 }
-.signup-first{
-    top:50%;
+
+.signup-first {
+    top: 50%;
     transition: 0.6s ease;
 }
+
 option::hover {
     background: rgba(190, 38, 59, 0.05);
     color: #BE263B;
@@ -222,6 +227,46 @@ option {
     font-size: 16px;
     line-height: 32px;
 }
-.text-center{
+
+.text-center {
     text-align: center;
+}
+
+.fa {
+    font-family: var(--fa-style-family, "Font Awesome 6 Free");
+    font-weight: var(--fa-style, 900)
+}
+
+.fa {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display, inline-block);
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto
+}
+
+.fa-eye:before {
+    content: "\f06e"
+}
+
+.fa-eye-slash:before {
+    content: "\f070";
+    color:#828282
+}
+
+.fa-circle-check:before {
+    content: "\f058"
+}
+
+.fa-times:before:before {
+    content: "\f00d"
+}
+
+.list-name,
+.task-name,
+.task-priority,
+.date-input{
+    padding: 12px 12px!important;
 }

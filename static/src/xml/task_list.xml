@@ -9,8 +9,13 @@
                     </t>
                     <div class="task-list-single">
                         <div class="check-task">
-                            <input type="checkbox" class="check-box" />
-                            <div>
+                            <t t-if="task.status == 'completed'">
+                            <input type="checkbox" checked="checked" t-att-value="task.id" class="check-box" />
+                            </t>
+                            <t t-else="">
+                                <input type="checkbox"  t-att-value="task.id" class="check-box" />
+                            </t>
+                            <div t-att-class="task.status=='completed'? 'completed-task':''">
                                 <h3 class="task-title"><t t-esc="task.name"/></h3>
                                 <p class="list-small"><t t-esc="task.task_list_id[1]"/></p>
                             </div>
