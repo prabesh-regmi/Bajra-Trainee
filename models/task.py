@@ -18,11 +18,14 @@ class Task(models.Model):
     task_list_id = fields.Many2one(
         'todo.list',
         string="Todo list", 
-        
+        ondelete='cascade'
     )
     user_id = fields.Many2one(
-        'res.users', 'Current User', default=lambda self: self.env.user)
+        'res.users', 'Current User', default=lambda self: self.env.user, ondelete='cascade')
 
+    # Special
+    status = fields.Selection(
+        selection=[('completed', 'Completed',), ('todo', 'Todo')], string='Status', copy=False, default='todo')
     # Create new Task
     @api.model
     def create_task(self, vals):
@@ -44,3 +47,10 @@ class Task(models.Model):
         user_id = self.env.user.id
         task_list_id = vals["id"]
         return {"data": self.env['todo.task'].search([("user_id", "=", user_id),("task_list_id", "=", task_list_id)]).read()}
+    
+    # Update task on completion
+    @api.model
+    def change_task_state(self,id,vals):
+        self.env['todo.task'].search(
+            [("id", "=", id)]).write(vals)
+        return True
