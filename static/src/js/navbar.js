@@ -6,7 +6,7 @@ odoo.define('todo.navbar', function (require) {
     const navbar = Widget.extend({
         init: function (parent) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             // Get the name of logged in user
             this.user_name = this.getSession().name
         },
@@ -17,7 +17,6 @@ odoo.define('todo.navbar', function (require) {
             // render navbar
             this.$navbar = $(QWeb.render('navbar',{"name":username}));
             this.$navbar.appendTo(this.$el);
-            return Promise.all([this._super.apply(this,arguments)])
         },
     })
     return navbar;

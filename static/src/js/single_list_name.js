@@ -11,7 +11,7 @@ odoo.define('todo.single.list.name', function (require) {
         },
         init: function (parent, data) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             this.list_name = data;
             this.tasks = [];
         },
@@ -25,7 +25,7 @@ odoo.define('todo.single.list.name', function (require) {
             }).then(response => {
                 self.tasks = response.data;
             });
-            return Promise.all([this._super.apply(this,arguments),tasks])
+            return Promise.all([tasks])
         },
         start: function () {
             var self = this;
@@ -36,7 +36,6 @@ odoo.define('todo.single.list.name', function (require) {
             // Create and append task list widget to show tasks of this list name
             this.task_list = new TaskListWidget(self,self.tasks);
             this.task_list.appendTo(self.$('.task-inside-list-section'));
-            return Promise.all([this._super.apply(this, arguments)])
         },
         // Function to show and hide tasks associated with specific list name 
         showDropDown: function (e) {

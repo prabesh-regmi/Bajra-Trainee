@@ -10,20 +10,17 @@ odoo.define('todo.task.list', function (require) {
         },
         init: function (parent, data) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             this.tasks = data;
-            console.log(this.tasks)
         },
         start: function () {
             var self = this;
             // Render all tasks in this.tasks
             this.$task_list = $(QWeb.render('todo.task', { "tasks": this.tasks }));
             this.$task_list.appendTo(this.$el);
-            return Promise.all([this._super.apply(this, arguments)])
         },
         onChecked: function (e) {
             var self = this;
-            // self.checked_data = e.target;
             var $target = $(e.target);
             var task_id = $target.val();
             var status = {}
@@ -34,16 +31,6 @@ odoo.define('todo.task.list', function (require) {
                 status = {'status':"todo"};
                 $target.next().css('text-decoration','none');
             }
-
-            // self.checked_data = $(self.checked_data).siblings();
-            // if (self.checked_data[0].style.textDecoration === "line-through") {
-            //     self.checked_data.css("text-decoration", "none");
-            //     this.vals = { 'state': 'new' };
-            // } else {
-            //     self.checked_data.css("text-decoration", "line-through");
-            //     this.vals = { 'state': 'completed' };
-            // }
-            // self.id = self.checked_data.find('.id').val();
             this._rpc({
                 model: 'todo.task',
                 method: 'change_task_state',

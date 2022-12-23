@@ -8,7 +8,7 @@ odoo.define("todo.quick.task.list", function (require) {
     const quickTaskList = Widget.extend({
         init: function (parent, data) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             this.all_tasks = [];
             this.today_tasks = [];
             this.upcoming_tasks = [];
@@ -28,7 +28,7 @@ odoo.define("todo.quick.task.list", function (require) {
                 // Assign today,upcoming and overdue tasks on the basic of todo date
                 self._getTasks(self.all_tasks);
             });
-            return Promise.all([this._super.apply(this, arguments), allTask]);
+            return Promise.all([allTask]);
         },
         start: function () {
             var self = this;
@@ -54,7 +54,6 @@ odoo.define("todo.quick.task.list", function (require) {
             // Create widget to display tasks
             this.task_list = new TaskListWidget(self, self.show_task);
             this.task_list.appendTo(self.$(".quick-todays-task-section"));
-            return Promise.all([this._super.apply(this, arguments)]);
         },
         // Function to seperate tasks to today, upcoming and overdue on the basic of todo date
         _getTasks: function (tasks) {

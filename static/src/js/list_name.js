@@ -9,7 +9,7 @@ odoo.define('todo.list.name', function (require) {
     const list_name = Widget.extend({
         init: function (parent, data) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             this.list_names = []
             this.list_names_widget = []
         },
@@ -24,7 +24,7 @@ odoo.define('todo.list.name', function (require) {
                 // Array of list name save in list_name
                 self.list_names = response.data;
             })]);
-            return Promise.all([this._super.apply(this,arguments),listName])
+            return Promise.all([listName])
         },
         start: function () {
             var self = this;
@@ -38,7 +38,6 @@ odoo.define('todo.list.name', function (require) {
                 var list_name = new SingleListNameWidget(self,item);
                 list_name.appendTo(self.$('.single-list-name-section'));
             });
-            return Promise.all([this._super.apply(this, arguments)])
         },
     })
     return list_name;

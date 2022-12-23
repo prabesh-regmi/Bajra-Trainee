@@ -10,7 +10,7 @@ odoo.define('todo.overview', function (require) {
         },
         init: function (parent) {
             var self = this;
-            this._super.apply(this, arguments);
+            this._super(parent);
             this.all_tasks = [];
             this.today_tasks = [];
             this.upcoming_tasks = [];
@@ -38,7 +38,7 @@ odoo.define('todo.overview', function (require) {
                 // Assign today,upcoming and overdue tasks on the basic of todo date
                 self._getTasks(self.all_tasks)
             });
-            return Promise.all([this._super.apply(this, arguments), listName, allTask]);
+            return Promise.all([listName, allTask]);
         },
         start: function () {
             var self = this;
@@ -46,7 +46,6 @@ odoo.define('todo.overview', function (require) {
             // Render overview section in dashboard
             this.$overview = $(QWeb.render('todo.overview', { "count": self.count }));
             this.$overview.appendTo(this.$el);
-            return Promise.all([this._super.apply(this, arguments)])
         },
         // To trigger custom event and also pass event 
         _onClickOverViewTask: function (e) {

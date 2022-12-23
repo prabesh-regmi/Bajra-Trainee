@@ -91,7 +91,8 @@ odoo.define('todo.action.client', function (require) {
                     self.do_notify("Success!", "New list Created!!");
                     // Append new list to list_names
                     self.list_names.push(response[0]);
-                    self.$('.list-name-section').empty();
+                    // self.$('.list-name-section').empty();
+                    self.task_list_name.destroy();
                     self.$('.modal-task').empty();
                     // Also update new list name in task list form 
                     var task_modal = $(QWeb.render('task-modal', { "lists": this.list_names }))
