@@ -3,9 +3,9 @@
 <!-- load custom css and js in web.assets_backend -->
     <template id="web_assets_backend_ext" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
             <script type="text/javascript" src="/todo/static/src/js/navbar.js" />
             <script type="text/javascript" src="/todo/static/src/js/overview.js" />
             <script type="text/javascript" src="/todo/static/src/js/task_list.js" />
@@ -19,10 +19,16 @@
     <template id="custom_assets_frontend" inherit_id="web.assets_frontend"
         name="custom_frontend_css">
         <xpath expr="//link[last()]" position="after">
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
-            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
             <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/login_signup.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+            
         </xpath>
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/todo/static/src/js/form_validation.js" />
+        </xpath>
+
     </template>
     <!-- Inherit web.login_layout -->
     <template id="login_layout" name="Login" inherit_id="web.login_layout">
