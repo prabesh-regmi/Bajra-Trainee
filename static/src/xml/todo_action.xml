@@ -124,7 +124,7 @@
                     </div>
                     <div class="select-div">
                         <label>Set date and time</label>
-                        <input type="date" name="date-time" class="form-select date-input" placeholder="Choose date and time" />
+                        <input type="text" name="date-time" onfocus="this.type='date'" onfocusout="this.type='text'" class="form-select date-input" placeholder="Choose date and time" />
                         <small class="invalid-feedback">
                             This field is required
                         </small>
